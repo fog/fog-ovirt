@@ -13,7 +13,6 @@
 * Lance Ivy <lance@cainlevy.net>
 * Matt Darby <matt.darby@rackspace.com>
 * Ohad Levy <ohadlevy@redhat.com>
-* orrabin <orabin@redhat.com>
 * Paul Thornthwaite <paul@brightbox.co.uk>
 * Paul Thornthwaite <tokengeek@gmail.com>
 * Pavol Dilung <pavol.dilung@gmail.com>
