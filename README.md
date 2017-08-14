@@ -20,8 +20,13 @@ Or install it yourself as:
 
 ## Usage
 
+Require the gem:
 ```ruby
-require 'fog/ovirt'
+require 'fog/ovirt' 
+```
+
+Connect to ovirt instance:
+```ruby
 
 compute = Fog::Compute.new(
           :provider         => "ovirt",
