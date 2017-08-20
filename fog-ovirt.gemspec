@@ -6,8 +6,8 @@ require 'fog/ovirt/version'
 Gem::Specification.new do |spec|
   spec.name          = 'fog-ovirt'
   spec.version       = Fog::Ovirt::VERSION
-  spec.authors       = ['']
-  spec.email         = ['']
+  spec.authors       = ['Ori Rabin']
+  spec.email         = ['orabin@redhat.com']
 
   spec.summary       = "Module for the 'fog' gem to support Ovirt."
   spec.description   = 'This library can be used as a module for `fog`.'
