@@ -1,0 +1,34 @@
+language: ruby
+
+sudo: false
+dist: trusty
+
+script: bundle exec rake test
+
+rvm:
+  - 2.1
+  - 2.2
+  - 2.3
+  - 2.4
+  - jruby-head
+
+gemfile:
+  - Gemfile
+
+matrix:
+  fast_finish: true
+  allow_failures:
+    - rvm: jruby-head
+
+notifications:
+  email: false
+  irc:
+    channels:
+      - "irc.freenode.org#theforeman-dev"
+    template:
+      - "[#%{build_number}] %{message} %{build_url}"
+      - "[#%{build_number}] %{commit} on %{branch} by %{author}"
+      - "[#%{build_number}] %{compare_url}"
+    on_success: change
+    on_failure: always
+    use_notice: false
