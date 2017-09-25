@@ -9,7 +9,7 @@ Shindo.tests('Fog::Compute[:ovirt]', ['ovirt']) do
   end
 
   tests("Compute collections") do
-    %w{ servers templates clusters interfaces }.each do |collection|
+    %w{ servers templates clusters interfaces operating_systems }.each do |collection|
       test("it should respond to #{collection}") { compute.respond_to? collection }
     end
   end
