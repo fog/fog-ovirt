@@ -19,6 +19,8 @@ module Fog
       collection :clusters
       model      :interface
       collection :interfaces
+      model      :operating_system
+      collection :operating_systems
       model      :volume
       collection :volumes
       model      :quota
@@ -70,6 +72,7 @@ module Fog
       request :destroy_affinity_group
       request :add_to_affinity_group
       request :remove_from_affinity_group
+      request :list_operating_systems
 
       module Shared
         # converts an OVIRT object into an hash for fog to consume.
