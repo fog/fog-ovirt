@@ -1,5 +1,5 @@
-require 'fog/core/collection'
-require 'fog/ovirt/models/compute/operating_system'
+require "fog/core/collection"
+require "fog/ovirt/models/compute/operating_system"
 
 module Fog
   module Compute
@@ -10,7 +10,7 @@ module Fog
         def all
           load service.list_operating_systems
         end
-     end
+      end
     end
   end
 end

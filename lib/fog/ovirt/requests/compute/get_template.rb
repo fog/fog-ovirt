@@ -7,9 +7,9 @@ module Fog
         end
       end
       class Mock
-        def get_template(id)
-          xml = read_xml 'template.xml'
-          ovirt_attrs OVIRT::Template::new(self, Nokogiri::XML(xml).root)
+        def get_template(_id)
+          xml = read_xml "template.xml"
+          ovirt_attrs OVIRT::Template.new(self, Nokogiri::XML(xml).root)
         end
       end
     end

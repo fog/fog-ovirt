@@ -1,5 +1,5 @@
-require 'fog/core/collection'
-require 'fog/ovirt/models/compute/instance_type'
+require "fog/core/collection"
+require "fog/ovirt/models/compute/instance_type"
 
 module Fog
   module Compute

@@ -1,5 +1,5 @@
-require 'fog/core/collection'
-require 'fog/ovirt/models/compute/volume'
+require "fog/core/collection"
+require "fog/ovirt/models/compute/volume"
 
 module Fog
   module Compute
@@ -9,7 +9,8 @@ module Fog
 
         attr_accessor :vm
 
-        def all(filters = {})
+        # rubocop:disable Metrics/AbcSize
+        def all(_filters = {})
           if vm.is_a? Fog::Compute::Ovirt::Server
             load service.list_vm_volumes(vm.id)
           elsif vm.is_a? Fog::Compute::Ovirt::Template
@@ -18,11 +19,12 @@ module Fog
             load service.list_volumes
           end
         end
+        # rubocop:enable Metrics/AbcSize
 
         def get(id)
           new service.get_volume(id)
         end
-     end
+      end
     end
   end
 end

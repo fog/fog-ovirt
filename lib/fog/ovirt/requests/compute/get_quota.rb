@@ -7,9 +7,9 @@ module Fog
         end
       end
       class Mock
-        def get_quota(id)
-          xml = read_xml('quota.xml')
-          ovirt_attrs OVIRT::Quota::new(self, Nokogiri::XML(xml).root)
+        def get_quota(_id)
+          xml = read_xml("quota.xml")
+          ovirt_attrs OVIRT::Quota.new(self, Nokogiri::XML(xml).root)
         end
       end
     end

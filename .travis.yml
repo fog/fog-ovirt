@@ -3,7 +3,9 @@ language: ruby
 sudo: false
 dist: trusty
 
-script: bundle exec rake test
+script:
+  - bundle exec rake rubocop
+  - bundle exec rake test
 
 rvm:
   - 2.1

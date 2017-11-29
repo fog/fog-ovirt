@@ -7,9 +7,9 @@ module Fog
         end
       end
       class Mock
-        def get_cluster(id)
-          xml = read_xml('cluster.xml')
-          ovirt_attrs OVIRT::Cluster::new(self, Nokogiri::XML(xml).root)
+        def get_cluster(_id)
+          xml = read_xml("cluster.xml")
+          ovirt_attrs OVIRT::Cluster.new(self, Nokogiri::XML(xml).root)
         end
       end
     end

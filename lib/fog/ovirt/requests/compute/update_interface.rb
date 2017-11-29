@@ -1,7 +1,6 @@
 module Fog
   module Compute
     class Ovirt
-
       module Shared
         def check_arguments(id, options)
           raise ArgumentError, "instance id is a required parameter" unless id

@@ -8,9 +8,9 @@ module Fog
       end
 
       class Mock
-        def create_vm(attrs)
-          xml = read_xml('vm.xml')
-          OVIRT::VM::new(self, Nokogiri::XML(xml).root)
+        def create_vm(_attrs)
+          xml = read_xml("vm.xml")
+          OVIRT::VM.new(self, Nokogiri::XML(xml).root)
         end
       end
     end

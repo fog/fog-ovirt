@@ -1,5 +1,5 @@
-require 'fog/core/collection'
-require 'fog/ovirt/models/compute/quota'
+require "fog/core/collection"
+require "fog/ovirt/models/compute/quota"
 
 module Fog
   module Compute
@@ -7,7 +7,7 @@ module Fog
       class Quotas < Fog::Collection
         model Fog::Compute::Ovirt::Quota
 
-	def all(filters = {})
+        def all(filters = {})
           load service.list_quotas(filters)
         end
 
