@@ -1,6 +1,6 @@
-require 'fog/core'
-require 'fog/xml'
-require 'rbovirt'
+require "fog/core"
+require "fog/xml"
+require "rbovirt"
 
 module Fog
   module Ovirt
@@ -22,6 +22,6 @@ module Fog
       end
     end
 
-    service(:compute, 'Compute')
+    service(:compute, "Compute")
   end
 end

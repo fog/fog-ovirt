@@ -1,1 +1,1 @@
-require 'fog/ovirt/compute'
+require "fog/ovirt/compute"

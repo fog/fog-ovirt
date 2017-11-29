@@ -7,9 +7,9 @@ module Fog
         end
       end
       class Mock
-        def get_instance_type(id)
-          xml = read_xml 'instance_type.xml'
-          ovirt_attrs OVIRT::InstanceType::new(self, Nokogiri::XML(xml).root)
+        def get_instance_type(_id)
+          xml = read_xml "instance_type.xml"
+          ovirt_attrs OVIRT::InstanceType.new(self, Nokogiri::XML(xml).root)
         end
       end
     end

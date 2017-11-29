@@ -11,11 +11,11 @@ module Fog
         attribute :description
         attribute :profile
         attribute :display
-        attribute :storage,       :aliases => 'disk_size'
+        attribute :storage, :aliases => "disk_size"
         attribute :creation_time
         attribute :os
         attribute :status
-        attribute :cores,         :aliases => 'cpus'
+        attribute :cores, :aliases => "cpus"
         attribute :memory
         attribute :cluster
         attribute :interfaces
@@ -24,28 +24,28 @@ module Fog
 
         def interfaces
           attributes[:interfaces] ||= id.nil? ? [] : Fog::Compute::Ovirt::Interfaces.new(
-              :service => service,
-              :vm => self
+            :service => service,
+            :vm => self
           )
         end
 
         def volumes
           attributes[:volumes] ||= id.nil? ? [] : Fog::Compute::Ovirt::Volumes.new(
-              :service => service,
-              :vm => self
+            :service => service,
+            :vm => self
           )
         end
 
         def ready?
-          !(status =~ /down/i)
+          status !~ /down/i
         end
 
-        def destroy(options = {})
+        def destroy(_options = {})
           service.client.destroy_template(id)
         end
 
         def save
-          raise ::Fog::Ovirt::Errors::OvirtError, 'Providing an existing object may create a duplicate object' if persisted?
+          raise ::Fog::Ovirt::Errors::OvirtError, "Providing an existing object may create a duplicate object" if persisted?
           service.client.create_template(attributes)
         end
 

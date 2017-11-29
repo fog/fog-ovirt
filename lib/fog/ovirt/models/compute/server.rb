@@ -1,4 +1,4 @@
-require 'fog/compute/models/server'
+require "fog/compute/models/server"
 
 module Fog
   module Compute
@@ -13,12 +13,12 @@ module Fog
         attribute :description
         attribute :profile
         attribute :display
-        attribute :storage,       :aliases => 'disk_size'
+        attribute :storage, :aliases => "disk_size"
         attribute :creation_time
         attribute :os
         attribute :ip
         attribute :status
-        attribute :cores,         :aliases => 'cpus'
+        attribute :cores, :aliases => "cpus"
         attribute :memory
         attribute :host
         attribute :cluster
@@ -35,16 +35,16 @@ module Fog
         attribute :disks
 
         def ready?
-          !(status =~ /down/i)
+          status !~ /down/i
         end
 
         def locked?
           @volumes = nil # force reload volumes
-          !!(status =~ /locked/i) || (attributes[:volumes]=nil) || volumes.any?{|v| !!(v.status =~ /locked/i)}
+          !!(status =~ /locked/i) || (attributes[:volumes] = nil) || volumes.any? { |v| !!(v.status =~ /locked/i) }
         end
 
         def stopped?
-          status.downcase == 'down'
+          status.casecmp("down").zero?
         end
 
         def mac
@@ -53,44 +53,44 @@ module Fog
 
         def interfaces
           @interfaces ||= id.nil? ? [] : Fog::Compute::Ovirt::Interfaces.new(
-              :service => service,
-              :vm => self
+            :service => service,
+            :vm => self
           )
         end
 
-        def add_interface attrs
+        def add_interface(attrs)
           wait_for { stopped? } if attrs[:blocking]
           service.add_interface(id, attrs)
         end
 
-        def update_interface attrs
+        def update_interface(attrs)
           wait_for { stopped? } if attrs[:blocking]
           service.update_interface(id, attrs)
         end
 
-        def destroy_interface attrs
+        def destroy_interface(attrs)
           wait_for { stopped? } if attrs[:blocking]
           service.destroy_interface(id, attrs)
         end
 
         def volumes
           @volumes ||= id.nil? ? [] : Fog::Compute::Ovirt::Volumes.new(
-              :service => service,
-              :vm => self
+            :service => service,
+            :vm => self
           )
         end
 
-        def add_volume attrs
+        def add_volume(attrs)
           wait_for { stopped? } if attrs[:blocking]
           service.add_volume(id, attrs)
         end
 
-        def destroy_volume attrs
+        def destroy_volume(attrs)
           wait_for { stopped? } if attrs[:blocking]
           service.destroy_volume(id, attrs)
         end
 
-        def update_volume attrs
+        def update_volume(attrs)
           wait_for { stopped? } if attrs[:blocking]
           service.update_volume(id, attrs)
         end
@@ -117,23 +117,25 @@ module Fog
 
         def start(options = {})
           wait_for { !locked? } if options[:blocking]
-          service.vm_action(:id =>id, :action => :start)
+          service.vm_action(:id => id, :action => :start)
           reload
         end
 
+        # rubocop:disable Metrics/AbcSize
         def start_with_cloudinit(options = {})
           wait_for { !locked? } if options[:blocking]
-          if options[:use_custom_script]
-            user_data = { :custom_script => options[:user_data] }
-          else
-            user_data = Hash[YAML.load(options[:user_data]).map{|a| [a.first.to_sym, a.last]}]
-          end
-          service.vm_start_with_cloudinit(:id =>id, :user_data =>user_data)
+          user_data = if options[:use_custom_script]
+                        { :custom_script => options[:user_data] }
+                      else
+                        Hash[YAML.safe_load(options[:user_data]).map { |a| [a.first.to_sym, a.last] }]
+                      end
+          service.vm_start_with_cloudinit(:id => id, :user_data => user_data)
           reload
         end
+        # rubocop:enable Metrics/AbcSize
 
-        def stop(options = {})
-          service.vm_action(:id =>id, :action => :stop)
+        def stop(_options = {})
+          service.vm_action(:id => id, :action => :stop)
           reload
         end
 
@@ -145,13 +147,17 @@ module Fog
           start options.merge(:blocking => true)
         end
 
-        def suspend(options = {})
-          service.vm_action(:id =>id, :action => :suspend)
+        def suspend(_options = {})
+          service.vm_action(:id => id, :action => :suspend)
           reload
         end
 
-        def destroy(options = {})
-          (stop unless stopped?) rescue nil #ignore failure, destroy the machine anyway.
+        def destroy(_options = {})
+          begin
+            (stop unless stopped?)
+          rescue StandardError
+            nil
+          end # ignore failure, destroy the machine anyway.
           wait_for { stopped? }
           service.destroy_vm(:id => id)
         end

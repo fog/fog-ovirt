@@ -1,1 +1,1 @@
-require File.expand_path('../../lib/fog/ovirt', __FILE__)
+require File.expand_path("../../lib/fog/ovirt", __FILE__)

@@ -3,11 +3,11 @@ module Fog
     class Ovirt
       class AffinityGroup < Fog::Model
         identity :id
-        
+
         attribute :name
         attribute :positive
         attribute :enforcing
-        
+
         def vms
           id.nil? ? [] : service.list_affinity_group_vms(id)
         end

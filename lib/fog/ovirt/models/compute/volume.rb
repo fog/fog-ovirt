@@ -3,7 +3,7 @@ module Fog
     class Ovirt
       class Volume < Fog::Model
         attr_accessor :raw
-        DISK_SIZE_TO_GB = 1073741824
+        DISK_SIZE_TO_GB = 1_073_741_824
         identity :id
 
         attribute :storage_domain
@@ -23,7 +23,7 @@ module Fog
           attributes[:size_gb] ||= attributes[:size].to_i / DISK_SIZE_TO_GB if attributes[:size]
         end
 
-        def size_gb= s
+        def size_gb=(s)
           attributes[:size] = s.to_i * DISK_SIZE_TO_GB if s
         end
 

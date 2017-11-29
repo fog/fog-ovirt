@@ -1,4 +1,4 @@
-require 'bundler/gem_tasks'
+require "bundler/gem_tasks"
 # require 'rake/testtask'
 
 # Rake::TestTask.new do |t|
@@ -7,9 +7,19 @@ require 'bundler/gem_tasks'
 #   t.verbose = true
 # end
 
-mock = ENV['FOG_MOCK'] || 'true'
-  task :test do
-    sh("export FOG_MOCK=#{mock} && bundle exec shindont tests/ovirt")
+mock = ENV["FOG_MOCK"] || "true"
+
+begin
+  require "rubocop/rake_task"
+  RuboCop::RakeTask.new do |t|
+    t.patterns = Dir["{lib,spec,tests}/**/*"]
   end
+rescue StandardError
+  puts "Rubocop not loaded"
+end
+
+task :test do
+  sh("export FOG_MOCK=#{mock} && bundle exec shindont tests/ovirt")
+end
 
 task(:default => [:test])

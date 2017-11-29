@@ -10,7 +10,7 @@ module Fog
       end
 
       class Mock
-        def add_interface(id, options = {})
+        def add_interface(id, _options = {})
           raise ArgumentError, "instance id is a required parameter" unless id
           true
         end

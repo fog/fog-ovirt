@@ -8,9 +8,9 @@ module Fog
       end
 
       class Mock
-        def create_affinity_group(attrs)
-          xml = read_xml('affinitygroup.xml')
-          OVIRT::AffinityGroup::new(self, Nokogiri::XML(xml).root)
+        def create_affinity_group(_attrs)
+          xml = read_xml("affinitygroup.xml")
+          OVIRT::AffinityGroup.new(self, Nokogiri::XML(xml).root)
         end
       end
     end

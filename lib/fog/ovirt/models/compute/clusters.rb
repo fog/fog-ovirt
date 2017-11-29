@@ -1,5 +1,5 @@
-require 'fog/core/collection'
-require 'fog/ovirt/models/compute/cluster'
+require "fog/core/collection"
+require "fog/ovirt/models/compute/cluster"
 
 module Fog
   module Compute

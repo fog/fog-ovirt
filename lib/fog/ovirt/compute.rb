@@ -1,14 +1,14 @@
-require 'fog/ovirt/core'
+require "fog/ovirt/core"
 
 module Fog
   module Compute
     class Ovirt < Fog::Service
       requires   :ovirt_username, :ovirt_password
-      recognizes :ovirt_url,      :ovirt_server,  :ovirt_port, :ovirt_api_path, :ovirt_datacenter,
+      recognizes :ovirt_url,      :ovirt_server, :ovirt_port, :ovirt_api_path, :ovirt_datacenter,
                  :ovirt_filtered_api,
                  :ovirt_ca_cert_store, :ovirt_ca_cert_file, :ovirt_ca_no_verify
 
-      model_path 'fog/ovirt/models/compute'
+      model_path "fog/ovirt/models/compute"
       model      :server
       collection :servers
       model      :template
@@ -28,7 +28,7 @@ module Fog
       model      :affinity_group
       collection :affinity_groups
 
-      request_path 'fog/ovirt/requests/compute'
+      request_path "fog/ovirt/requests/compute"
 
       request :vm_action
       request :vm_start_with_cloudinit
@@ -76,12 +76,12 @@ module Fog
 
       module Shared
         # converts an OVIRT object into an hash for fog to consume.
-        def ovirt_attrs obj
-          opts = {:raw => obj}
+        def ovirt_attrs(obj)
+          opts = { :raw => obj }
           obj.instance_variables.each do |v|
-            key = v.to_s.gsub("@","").to_sym
+            key = v.to_s.delete("@").to_sym
             value = obj.instance_variable_get(v)
-            #ignore nil values
+            # ignore nil values
             next if value.nil?
 
             opts[key] = case value
@@ -106,7 +106,8 @@ module Fog
           @client = client
         end
 
-        def method_missing(symbol, *args, &block)
+        # rubocop:disable Style/MethodMissing
+        def method_missing(symbol, *args)
           if block_given?
             @client.send(symbol, *args) do |*block_args|
               yield(*block_args)
@@ -121,13 +122,14 @@ module Fog
         def respond_to?(symbol, include_all = false)
           @client.respond_to?(symbol, include_all)
         end
+        # rubocop:enable Style/MethodMissing
       end
 
       class Mock
         include Shared
 
-        def initialize(options={})
-          require 'rbovirt'
+        def initialize(_options = {})
+          require "rbovirt"
         end
 
         private
@@ -136,9 +138,9 @@ module Fog
           return @client if defined?(@client)
         end
 
-        #read mocks xml
+        # read mocks xml
         def read_xml(file_name)
-          file_path = File.join(File.dirname(__FILE__),"requests","compute","mock_files",file_name)
+          file_path = File.join(File.dirname(__FILE__), "requests", "compute", "mock_files", file_name)
           File.read(file_path)
         end
       end
@@ -146,13 +148,14 @@ module Fog
       class Real
         include Shared
 
-        def initialize(options={})
-          require 'rbovirt'
+        # rubocop:disable Metrics/AbcSize
+        def initialize(options = {})
+          require "rbovirt"
           username   = options[:ovirt_username]
           password   = options[:ovirt_password]
           server     = options[:ovirt_server]
           port       = options[:ovirt_port]       || 8080
-          api_path   = options[:ovirt_api_path]   || '/api'
+          api_path   = options[:ovirt_api_path]   || "/api"
           url        = options[:ovirt_url]        || "#{@scheme}://#{server}:#{port}#{api_path}"
 
           connection_opts = {}
@@ -164,6 +167,7 @@ module Fog
 
           @client = ExceptionWrapper.new(OVIRT::Client.new(username, password, url, connection_opts))
         end
+        # rubocop:enable Metrics/AbcSize
 
         def api_version
           client.api_version

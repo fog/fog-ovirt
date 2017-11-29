@@ -8,9 +8,9 @@ module Fog
       end
 
       class Mock
-        def update_vm(attrs)
-          xml = read_xml('vm.xml')
-          OVIRT::VM::new(self, Nokogiri::XML(xml).root)
+        def update_vm(_attrs)
+          xml = read_xml("vm.xml")
+          OVIRT::VM.new(self, Nokogiri::XML(xml).root)
         end
       end
     end

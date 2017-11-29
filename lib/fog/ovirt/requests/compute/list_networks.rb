@@ -7,7 +7,7 @@ module Fog
         end
       end
       class Mock
-        def list_networks(cluster_id)
+        def list_networks(_cluster_id)
           []
         end
       end

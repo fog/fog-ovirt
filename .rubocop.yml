@@ -1,0 +1,20 @@
+inherit_from: .rubocop_todo.yml
+
+Style/HashSyntax:
+  EnforcedStyle: hash_rockets
+
+Metrics/LineLength:
+  Max: 100
+  Enabled: false
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
+Style/Encoding:
+  Description: 'Use UTF-8 as the source file encoding.'
+  Enabled: false
+
+Style/SignalException:
+  Description: 'Do not enforce use of fail when raising exceptions.'
+  # Valid values are: semantic, only_raise and only_fail
+  EnforcedStyle: only_raise

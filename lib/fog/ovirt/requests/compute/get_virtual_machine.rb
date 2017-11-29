@@ -7,9 +7,9 @@ module Fog
         end
       end
       class Mock
-        def get_virtual_machine(id)
-          xml = read_xml 'vm.xml'
-          ovirt_attrs OVIRT::VM::new(self, Nokogiri::XML(xml).root)
+        def get_virtual_machine(_id)
+          xml = read_xml "vm.xml"
+          ovirt_attrs OVIRT::VM.new(self, Nokogiri::XML(xml).root)
         end
       end
     end
