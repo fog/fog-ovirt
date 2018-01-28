@@ -45,7 +45,7 @@ module Fog
         end
 
         def save
-          raise Fog::Errors::Error.new('Resaving an existing object may create a duplicate') if persisted?
+          raise ::Fog::Ovirt::Errors::OvirtError, 'Providing an existing object may create a duplicate object' if persisted?
           service.client.create_template(attributes)
         end
 

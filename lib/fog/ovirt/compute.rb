@@ -101,6 +101,28 @@ module Fog
         end
       end
 
+      class ExceptionWrapper
+        def initialize(client)
+          @client = client
+        end
+
+        def method_missing(symbol, *args, &block)
+          if block_given?
+            @client.send(symbol, *args) do |*block_args|
+              yield(*block_args)
+            end
+          else
+            @client.send(symbol, *args)
+          end
+        rescue ::OVIRT::OvirtException => e
+          raise ::Fog::Ovirt::Errors::OvirtEngineError, e
+        end
+
+        def respond_to?(symbol, include_all = false)
+          @client.respond_to?(symbol, include_all)
+        end
+      end
+
       class Mock
         include Shared
 
@@ -140,7 +162,7 @@ module Fog
           connection_opts[:ca_no_verify]  = options[:ovirt_ca_no_verify]
           connection_opts[:filtered_api]  = options[:ovirt_filtered_api]
 
-          @client = OVIRT::Client.new(username, password, url, connection_opts)
+          @client = ExceptionWrapper.new(OVIRT::Client.new(username, password, url, connection_opts))
         end
 
         def api_version
@@ -149,9 +171,7 @@ module Fog
 
         private
 
-        def client
-          @client
-        end
+        attr_reader :client
       end
     end
   end

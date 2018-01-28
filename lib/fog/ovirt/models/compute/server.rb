@@ -109,7 +109,7 @@ module Fog
           wait_for { stopped? } if attrs[:blocking]
           service.add_to_affinity_group(id, attrs)
         end
-        
+
         def remove_from_affinity_group(attrs)
           wait_for { stopped? } if attrs[:blocking]
           service.remove_from_affinity_group(id, attrs)
@@ -157,7 +157,7 @@ module Fog
         end
 
         def ticket(options = {})
-          raise "Can not set console ticket, Server is not ready. Server status: #{status}" unless ready?
+          raise ::Fog::Ovirt::Errors::OvirtError, "Can not set console ticket, Server is not ready. Server status: #{status}" unless ready?
           service.vm_ticket(id, options)
         end
 
