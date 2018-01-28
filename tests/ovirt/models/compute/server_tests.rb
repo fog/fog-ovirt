@@ -11,12 +11,7 @@ Shindo.tests("Fog::Compute[:ovirt] | server model", ["ovirt"]) do
       end
       %w[start reboot suspend stop].each do |action|
         test("#{action} returns successfully") do
-          begin
-            server.send(action.to_sym) ? true : false
-          rescue OVIRT::OvirtException
-            # ovirt exceptions are acceptable for the above actions.
-            true
-          end
+          server.send(action.to_sym) ? true : false
         end
       end
     end
