@@ -16,7 +16,7 @@ module Fog
           elsif vm.is_a? Fog::Compute::Ovirt::Template
             load service.list_template_interfaces(vm.id)
           else
-            raise 'interfaces should have vm or template'
+            raise ::Fog::Ovirt::Errors::OvirtError, 'interfaces should have vm or template'
           end
         end
 
