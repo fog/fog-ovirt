@@ -4,7 +4,7 @@ module Fog
       class V3 < Fog::Service
         requires   :ovirt_username, :ovirt_password
         recognizes :ovirt_url,      :ovirt_server, :ovirt_port, :ovirt_api_path, :ovirt_datacenter,
-                   :ovirt_filtered_api,
+                   :ovirt_filtered_api, :public_key, :api_version,
                    :ovirt_ca_cert_store, :ovirt_ca_cert_file, :ovirt_ca_no_verify
         request_path "fog/ovirt/requests/compute/v3"
 
