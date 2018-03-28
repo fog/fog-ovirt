@@ -117,8 +117,7 @@ module Fog
 
         def start(options = {})
           wait_for { !locked? } if options[:blocking]
-          service.vm_action(:id => id, :action => :start)
-          reload
+          vm_power_action(:start)
         end
 
         # rubocop:disable Metrics/AbcSize
@@ -129,14 +128,14 @@ module Fog
                       else
                         Hash[YAML.safe_load(options[:user_data]).map { |a| [a.first.to_sym, a.last] }]
                       end
-          service.vm_start_with_cloudinit(:id => id, :user_data => user_data)
+          action_status = service.vm_start_with_cloudinit(:id => id, :user_data => user_data)
           reload
+          action_status
         end
         # rubocop:enable Metrics/AbcSize
 
         def stop(_options = {})
-          service.vm_action(:id => id, :action => :stop)
-          reload
+          vm_power_action(:stop)
         end
 
         def reboot(options = {})
@@ -148,8 +147,13 @@ module Fog
         end
 
         def suspend(_options = {})
-          service.vm_action(:id => id, :action => :suspend)
+          vm_power_action(:suspend)
+        end
+
+        def vm_power_action(action)
+          action_status = service.vm_action(:id => id, :action => action)
           reload
+          action_status
         end
 
         def destroy(_options = {})
