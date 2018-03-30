@@ -1,5 +1,5 @@
 require "fog/core/collection"
-require "fog/ovirt/models/compute/quota"
+require "fog/compute/ovirt/models/quota"
 
 module Fog
   module Compute

@@ -1,28 +1,29 @@
 require "fog/core/collection"
-require "fog/ovirt/models/compute/volume"
+require "fog/compute/ovirt/models/interface"
 
 module Fog
   module Compute
     class Ovirt
-      class Volumes < Fog::Collection
-        model Fog::Compute::Ovirt::Volume
+      class Interfaces < Fog::Collection
+        model Fog::Compute::Ovirt::Interface
 
         attr_accessor :vm
 
         # rubocop:disable Metrics/AbcSize
         def all(_filters = {})
+          requires :vm
           if vm.is_a? Fog::Compute::Ovirt::Server
-            load service.list_vm_volumes(vm.id)
+            load service.list_vm_interfaces(vm.id)
           elsif vm.is_a? Fog::Compute::Ovirt::Template
-            load service.list_template_volumes(vm.id)
+            load service.list_template_interfaces(vm.id)
           else
-            load service.list_volumes
+            raise ::Fog::Ovirt::Errors::OvirtError, "interfaces should have vm or template"
           end
         end
         # rubocop:enable Metrics/AbcSize
 
         def get(id)
-          new service.get_volume(id)
+          new service.get_interface(id)
         end
       end
     end

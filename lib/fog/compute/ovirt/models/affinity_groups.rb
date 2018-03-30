@@ -1,5 +1,5 @@
 require "fog/core/collection"
-require "fog/ovirt/models/compute/affinity_group"
+require "fog/compute/ovirt/models/affinity_group"
 
 module Fog
   module Compute

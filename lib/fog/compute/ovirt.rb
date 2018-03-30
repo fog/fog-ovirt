@@ -1,9 +1,9 @@
-require "fog/ovirt/core"
-
 module Fog
   module Compute
     class Ovirt < Fog::Service
-      model_path "fog/ovirt/models/compute"
+      autoload :V3, File.expand_path("ovirt/v3", __dir__)
+
+      model_path "fog/compute/ovirt/models"
       model      :server
       collection :servers
       model      :template
@@ -46,8 +46,6 @@ module Fog
         end
         # rubocop:enable Style/MethodMissing
       end
-
-      require "fog/ovirt/compute/v3"
 
       def self.new(options = {})
         super()

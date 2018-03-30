@@ -1,5 +1,5 @@
 require "fog/core/collection"
-require "fog/ovirt/models/compute/server"
+require "fog/compute/ovirt/models/server"
 
 module Fog
   module Compute

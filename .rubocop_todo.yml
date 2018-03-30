@@ -24,7 +24,7 @@ Style/ClassVars:
 # Offense count: 1
 Style/CommentedKeyword:
   Exclude:
-    - 'lib/fog/ovirt/models/compute/server.rb'
+    - 'lib/fog/compute/ovirt/models/server.rb'
 
 # Offense count: 113
 Style/Documentation:
@@ -33,11 +33,11 @@ Style/Documentation:
 # Offense count: 3
 Style/DoubleNegation:
   Exclude:
-    - 'lib/fog/ovirt/models/compute/server.rb'
+    - 'lib/fog/compute/ovirt/models/server.rb'
     - 'tests/helpers/succeeds_helper.rb'
 
 # Offense count: 4
 Style/MultilineTernaryOperator:
   Exclude:
-    - 'lib/fog/ovirt/models/compute/server.rb'
-    - 'lib/fog/ovirt/models/compute/template.rb'
+    - 'lib/fog/compute/ovirt/models/server.rb'
+    - 'lib/fog/compute/ovirt/models/template.rb'
