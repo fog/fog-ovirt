@@ -6,7 +6,7 @@ module Fog
         recognizes :ovirt_url,      :ovirt_server, :ovirt_port, :ovirt_api_path, :ovirt_datacenter,
                    :ovirt_filtered_api,
                    :ovirt_ca_cert_store, :ovirt_ca_cert_file, :ovirt_ca_no_verify
-        request_path "fog/ovirt/requests/compute/v3"
+        request_path "fog/compute/ovirt/v3"
 
         request :vm_action
         request :vm_start_with_cloudinit
@@ -94,7 +94,7 @@ module Fog
 
           # read mocks xml
           def read_xml(file_name)
-            file_path = File.join(__dir__, "../requests", "compute/v3", "mock_files", file_name)
+            file_path = File.join(__dir__, "./v3/mock_files", file_name)
             File.read(file_path)
           end
         end
