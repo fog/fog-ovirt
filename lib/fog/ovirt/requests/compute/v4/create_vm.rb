@@ -41,6 +41,11 @@ module Fog
             attrs[:comment] ||= ""
             attrs[:quota] = attrs[:quota].present? ? client.system_service.data_centers_service.data_center_service(datacenter).quotas_service.quota_service(attrs[:quota]).get : nil
 
+            if attrs[:cores].present?
+              cpu_topology = OvirtSDK4::CpuTopology.new(:cores => attrs[:cores], :sockets => "1")
+              attrs[:cpu] = OvirtSDK4::Cpu.new(:topology => cpu_topology)
+            end
+
             # TODO: handle cloning from template
             process_vm_opts(attrs)
 
