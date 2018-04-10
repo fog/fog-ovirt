@@ -40,9 +40,8 @@ module Fog
 
             attrs[:comment] ||= ""
             attrs[:quota] = attrs[:quota].present? ? client.system_service.data_centers_service.data_center_service(datacenter).quotas_service.quota_service(attrs[:quota]).get : nil
-
-            if attrs[:cores].present?
-              cpu_topology = OvirtSDK4::CpuTopology.new(:cores => attrs[:cores], :sockets => "1")
+            if attrs[:cores].present? || attrs[:sockets].present?
+              cpu_topology = OvirtSDK4::CpuTopology.new(:cores => attrs.fetch(:cores, "1"), :sockets => attrs.fetch(:sockets, "1"))
               attrs[:cpu] = OvirtSDK4::Cpu.new(:topology => cpu_topology)
             end
 

@@ -80,6 +80,7 @@ module Fog
               value.address
             when OvirtSDK4::Cpu
               opts[:cores] = value.topology.nil? ? nil : value.topology.cores
+              opts[:sockets] = value.topology.nil? ? nil : value.topology.sockets
             when OvirtSDK4::Display
               subject = value.certificate.subject if value.certificate
               {
