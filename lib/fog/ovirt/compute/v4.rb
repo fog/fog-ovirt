@@ -150,7 +150,7 @@ module Fog
           end
 
           def datacenter
-            @datacenter ||= datacenters.first.id
+            @datacenter ||= datacenters.first[:id]
           end
 
           private
