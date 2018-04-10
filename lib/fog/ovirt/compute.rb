@@ -26,6 +26,8 @@ module Fog
       model      :affinity_group
       collection :affinity_groups
 
+      DISK_SIZE_TO_GB = 1024 * 1024 * 1024
+
       class ExceptionWrapper
         def initialize(client)
           @client = client

@@ -3,8 +3,6 @@ module Fog
     class Ovirt
       class V4
         class Real
-          DISK_SIZE_TO_GB = 1024 * 1024 * 1024
-
           def add_volume(id, options = {})
             raise ArgumentError, "instance id is a required parameter" unless id
 
@@ -21,11 +19,11 @@ module Fog
             search = options[:search] || format("datacenter=%<datacenter>s", :datacenter => datacenter)
             options[:bootable] ||= "true"
             options[:interface] ||= OvirtSDK4::DiskInterface::VIRTIO
-            options[:provisioned_size] = options[:size_gb].to_i * DISK_SIZE_TO_GB if options[:size_gb]
+            options[:provisioned_size] = options[:size_gb].to_i * Fog::Compute::Ovirt::DISK_SIZE_TO_GB if options[:size_gb]
 
             options[:storage_domain_id] = options[:storage_domain] || storagedomains(:role => "data", :search => search).first.id
             # If no size is given, default to a volume size of 8GB
-            options[:provisioned_size] ||= 8 * DISK_SIZE_TO_GB
+            options[:provisioned_size] ||= 8 * Fog::Compute::Ovirt::DISK_SIZE_TO_GB
             options[:type] ||= OvirtSDK4::DiskType::DATA
             options[:format] ||= OvirtSDK4::DiskFormat::COW
             options[:sparse] = true unless options[:sparse].present?

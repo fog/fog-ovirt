@@ -24,7 +24,7 @@ module Fog
           end
           # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
-          # rubocop:disable Metrics/AbcSize
+          # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
           def create_vm(attrs)
             attrs = attrs.dup
             attrs[:cluster_name] ||= datacenter.clusters.first.name unless attrs[:cluster]
@@ -46,13 +46,16 @@ module Fog
               attrs[:cpu] = OvirtSDK4::Cpu.new(:topology => cpu_topology)
             end
 
+            if attrs[:memory].to_i < Fog::Compute::Ovirt::DISK_SIZE_TO_GB
+              attrs[:memory_policy] = OvirtSDK4::MemoryPolicy.new(:guaranteed => attrs[:memory])
+            end
+
             # TODO: handle cloning from template
             process_vm_opts(attrs)
-
             new_vm = OvirtSDK4::Vm.new(attrs)
             vms_service.add(new_vm)
           end
-          # rubocop:enable Metrics/AbcSize
+          # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
         end
 
         class Mock
