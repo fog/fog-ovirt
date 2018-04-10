@@ -19,6 +19,7 @@ module Fog
         attribute :ip
         attribute :status
         attribute :cores, :aliases => "cpus"
+        attribute :sockets
         attribute :memory
         attribute :host
         attribute :cluster
