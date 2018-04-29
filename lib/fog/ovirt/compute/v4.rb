@@ -8,8 +8,10 @@ module Fog
         request_path "fog/ovirt/requests/compute/v4"
 
         request :vm_action
+        request :vm_start_with_cloudinit
         request :destroy_vm
         request :create_vm
+        request :update_vm
         request :datacenters
         request :storage_domains
         request :list_virtual_machines
@@ -71,11 +73,17 @@ module Fog
           end
           # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
-          # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
+          # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity
           def get_attr_value(value, opts)
             case value
-            when OvirtSDK4::TemplateVersion, Array, Hash, OvirtSDK4::List, OvirtSDK4::DataCenter
+            when OvirtSDK4::List
+              value.to_a
+            when Array, Hash, DateTime
               value
+            when OvirtSDK4::HighAvailability
+              opts[:ha] = value.enabled
+            when OvirtSDK4::TemplateVersion
+              OpenStruct.new(:version_name => value.version_name, :version_number => value.version_number)
             when OvirtSDK4::Mac
               value.address
             when OvirtSDK4::Cpu
@@ -92,10 +100,14 @@ module Fog
                 :monitors => value.monitors
               }
             else
-              value.to_s.strip
+              if value.class.respond_to?(:parent) && value.class.parent == OvirtSDK4
+                value.id if value.respond_to?(:id)
+              else
+                value.to_s.strip
+              end
             end
           end
-          # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
+          # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity
         end
 
         class Mock
@@ -156,6 +168,10 @@ module Fog
 
           def datacenter_hash
             @datacenter_hash ||= datacenters.first
+          end
+
+          def blank_template
+            @blank_template ||= client.system_service.get.special_objects.blank_template
           end
 
           private
