@@ -8,8 +8,10 @@ module Fog
         request_path "fog/ovirt/requests/compute/v4"
 
         request :vm_action
+        request :vm_start_with_cloudinit
         request :destroy_vm
         request :create_vm
+        request :update_vm
         request :datacenters
         request :storage_domains
         request :list_virtual_machines
@@ -71,11 +73,8 @@ module Fog
           end
           # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
-          # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
           def get_attr_value(value, opts)
             case value
-            when OvirtSDK4::TemplateVersion, Array, Hash, OvirtSDK4::List, OvirtSDK4::DataCenter
-              value
             when OvirtSDK4::Mac
               value.address
             when OvirtSDK4::Cpu
@@ -92,10 +91,9 @@ module Fog
                 :monitors => value.monitors
               }
             else
-              value.to_s.strip
+              value
             end
           end
-          # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
         end
 
         class Mock

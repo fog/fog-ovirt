@@ -55,7 +55,6 @@ module Fog
 
       def self.new(options = {})
         super(options)
-
         # rubocop:disable Style/ConditionalAssignment
         if options[:api_version] == "v4"
           @client = Fog::Compute::Ovirt::V4.new(options)
@@ -65,15 +64,14 @@ module Fog
         # rubocop:enable Style/ConditionalAssignment
       end
 
-      # rubocop:disable Style/MethodMissingSuper, Style/MissingRespondToMissing
       def method_missing(symbol, *args)
+        super unless @client.respond_to?(symbol)
         @client.__send__(symbol, *args)
       end
 
-      def respond_to?(symbol, include_all = false)
-        @client.respond_to?(symbol, include_all)
+      def respond_to_missing?(method_name, include_private = false)
+        @client.respond_to?(symbol, include_all) || super
       end
-      # rubocop:enable Style/MethodMissingSuper, Style/MissingRespondToMissing
 
       class Mock
         def initialize(options = {})
@@ -86,15 +84,14 @@ module Fog
           end
         end
 
-        # rubocop:disable Style/MethodMissingSuper, Style/MissingRespondToMissing
         def method_missing(symbol, *args)
+          super unless @client.respond_to?(symbol)
           @client.__send__(symbol, *args)
         end
 
-        def respond_to?(symbol, include_all = false)
-          @client.respond_to?(symbol, include_all)
+        def respond_to_missing?(method_name, include_private = false)
+          @client.respond_to?(symbol, include_all) || super
         end
-        # rubocop:enable Style/MethodMissingSuper, Style/MissingRespondToMissing
       end
 
       class Real
@@ -108,15 +105,14 @@ module Fog
           end
         end
 
-        # rubocop:disable Style/MethodMissingSuper, Style/MissingRespondToMissing
         def method_missing(symbol, *args)
+          super unless @client.respond_to?(symbol)
           @client.send(symbol, *args)
         end
 
-        def respond_to?(symbol, include_all = false)
-          @client.respond_to?(symbol, include_all)
+        def respond_to_missing?(method_name, include_private = false)
+          @client.respond_to?(symbol, include_all) || super
         end
-        # rubocop:enable Style/MethodMissingSuper, Style/MissingRespondToMissing
       end
     end
   end
