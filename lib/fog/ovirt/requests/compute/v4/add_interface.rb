@@ -17,7 +17,7 @@ module Fog
 
               profile = profiles.detect { |x| x.name == network.name }
 
-              profile ||= profiles.sort_by(&:name).first
+              profile ||= profiles.min_by(&:name)
 
               options.delete(:network)
               options[:vnic_profile] = { :id => profile.id }
