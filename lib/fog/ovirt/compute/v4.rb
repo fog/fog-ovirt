@@ -56,7 +56,7 @@ module Fog
               end
 
               if key == :provisioned_size
-                opts[:size] = value
+                opts[:size] = value.to_s
                 next
               end
 

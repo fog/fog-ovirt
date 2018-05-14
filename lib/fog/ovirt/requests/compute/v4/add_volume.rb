@@ -13,11 +13,11 @@ module Fog
             disk_attachments_service.add(disk)
           end
 
-          # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
+          # rubocop:disable Metrics/AbcSize
           def add_options_defaults(options)
             options = options.dup
             search = options[:search] || format("datacenter=%<datacenter>s", :datacenter => datacenter)
-            options[:bootable] ||= "true"
+            options[:bootable] = options.delete(:bootable) == "true"
             options[:interface] ||= OvirtSDK4::DiskInterface::VIRTIO
             options[:provisioned_size] = options[:size_gb].to_i * Fog::Compute::Ovirt::DISK_SIZE_TO_GB if options[:size_gb]
 
@@ -32,12 +32,12 @@ module Fog
             options[:disk] ||= {}
             options[:disk][:storage_domains] ||= [client.system_service.storage_domains_service.storage_domain_service(options[:storage_domain_id]).get]
             options[:disk][:provisioned_size] ||= options.delete(:provisioned_size)
-            options[:disk][:type] ||= options.delete(:type)
             options[:disk][:format] ||= options.delete(:format)
-            options[:disk][:sparse] = options.delete(:sparse) unless options[:disk][:sparse].present?
+            options[:disk][:sparse] ||= options.delete(:sparse) == "true"
+            options[:disk][:wipe_after_delete] ||= options.delete(:wipe_after_delete) == "true"
             options
           end
-          # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
+          # rubocop:enable Metrics/AbcSize
         end
 
         class Mock
