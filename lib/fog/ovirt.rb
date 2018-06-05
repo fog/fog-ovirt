@@ -3,7 +3,7 @@ require "fog/xml"
 
 module Fog
   module Compute
-    autoload :Ovirt, File.expand_path('../ovirt/compute', __FILE__)
+    autoload :Ovirt, File.expand_path("ovirt/compute", __dir__)
   end
 
   module Ovirt

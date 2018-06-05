@@ -151,7 +151,11 @@ module Fog
           end
 
           def datacenter
-            @datacenter ||= datacenters.first[:id]
+            @datacenter ||= datacenter_hash[:id]
+          end
+
+          def datacenter_hash
+            @datacenter_hash ||= datacenters.first
           end
 
           private
