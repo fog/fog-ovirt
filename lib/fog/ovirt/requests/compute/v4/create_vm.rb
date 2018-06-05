@@ -27,9 +27,21 @@ module Fog
           # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
           def create_vm(attrs)
             attrs = attrs.dup
-            attrs[:cluster_name] ||= datacenter.clusters.first.name unless attrs[:cluster]
+
+            if attrs[:cluster].present?
+              attrs[:cluster] = client.system_service.clusters_service.cluster_service(attrs[:cluster]).get
+            else
+              if attrs[:cluster_name].present?
+                cluster = client.system_service.clusters_service.list(:search => "name=#{attrs[:cluster_name]}").first
+              else
+                cluster = client.system_service.clusters_service.list(:search => "datacenter=#{datacenter_hash[:name]}").first
+                attrs[:cluster_name] = cluster.name
+              end
+
+              attrs[:cluster] = cluster
+            end
+
             vms_service = client.system_service.vms_service
-            attrs[:cluster] = client.system_service.clusters_service.cluster_service(attrs[:cluster]).get
             attrs[:instance_type] = attrs[:instance_type].present? ? client.system_service.instance_types_service.instance_type_service(attrs[:instance_type]).get : nil
 
             attrs[:template] = if attrs[:template].present?
@@ -45,9 +57,7 @@ module Fog
               attrs[:cpu] = OvirtSDK4::Cpu.new(:topology => cpu_topology)
             end
 
-            if attrs[:memory].to_i < Fog::Compute::Ovirt::DISK_SIZE_TO_GB
-              attrs[:memory_policy] = OvirtSDK4::MemoryPolicy.new(:guaranteed => attrs[:memory])
-            end
+            attrs[:memory_policy] = OvirtSDK4::MemoryPolicy.new(:guaranteed => attrs[:memory]) if attrs[:memory].to_i < Fog::Compute::Ovirt::DISK_SIZE_TO_GB
 
             # TODO: handle cloning from template
             process_vm_opts(attrs)
