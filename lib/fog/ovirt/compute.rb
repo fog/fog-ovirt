@@ -33,7 +33,7 @@ module Fog
           @client = client
         end
 
-        # rubocop:disable Style/MethodMissing
+        # rubocop:disable Style/MethodMissingSuper, Style/MissingRespondToMissing
         def method_missing(symbol, *args)
           if block_given?
             @client.__send__(symbol, *args) do |*block_args|
@@ -49,7 +49,7 @@ module Fog
         def respond_to?(symbol, include_all = false)
           @client.respond_to?(symbol, include_all)
         end
-        # rubocop:enable Style/MethodMissing
+        # rubocop:enable Style/MethodMissingSuper, Style/MissingRespondToMissing
       end
 
       require "fog/ovirt/compute/v3"
@@ -67,7 +67,7 @@ module Fog
         # rubocop:enable Style/ConditionalAssignment
       end
 
-      # rubocop:disable Style/MethodMissing
+      # rubocop:disable Style/MethodMissingSuper, Style/MissingRespondToMissing
       def method_missing(symbol, *args)
         @client.__send__(symbol, *args)
       end
@@ -75,7 +75,7 @@ module Fog
       def respond_to?(symbol, include_all = false)
         @client.respond_to?(symbol, include_all)
       end
-      # rubocop:enable Style/MethodMissing
+      # rubocop:enable Style/MethodMissingSuper, Style/MissingRespondToMissing
 
       class Mock
         def initialize(options = {})
@@ -88,7 +88,7 @@ module Fog
           end
         end
 
-        # rubocop:disable Style/MethodMissing
+        # rubocop:disable Style/MethodMissingSuper, Style/MissingRespondToMissing
         def method_missing(symbol, *args)
           @client.__send__(symbol, *args)
         end
@@ -96,7 +96,7 @@ module Fog
         def respond_to?(symbol, include_all = false)
           @client.respond_to?(symbol, include_all)
         end
-        # rubocop:enable Style/MethodMissing
+        # rubocop:enable Style/MethodMissingSuper, Style/MissingRespondToMissing
       end
 
       class Real
@@ -110,7 +110,7 @@ module Fog
           end
         end
 
-        # rubocop:disable Style/MethodMissing
+        # rubocop:disable Style/MethodMissingSuper, Style/MissingRespondToMissing
         def method_missing(symbol, *args)
           @client.send(symbol, *args)
         end
@@ -118,7 +118,7 @@ module Fog
         def respond_to?(symbol, include_all = false)
           @client.respond_to?(symbol, include_all)
         end
-        # rubocop:enable Style/MethodMissing
+        # rubocop:enable Style/MethodMissingSuper, Style/MissingRespondToMissing
       end
     end
   end
