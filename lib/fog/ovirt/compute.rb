@@ -31,8 +31,9 @@ module Fog
           @client = client
         end
 
-        # rubocop:disable Style/MethodMissingSuper, Style/MissingRespondToMissing
         def method_missing(symbol, *args)
+          super unless @client.respond_to?(symbol)
+
           if block_given?
             @client.__send__(symbol, *args) do |*block_args|
               yield(*block_args)
@@ -44,10 +45,9 @@ module Fog
           raise ::Fog::Ovirt::Errors::OvirtEngineError, e
         end
 
-        def respond_to?(symbol, include_all = false)
-          @client.respond_to?(symbol, include_all)
+        def respond_to_missing?(method_name, include_private = false)
+          @client.respond_to?(symbol, include_all) || super
         end
-        # rubocop:enable Style/MethodMissingSuper, Style/MissingRespondToMissing
       end
 
       require "fog/ovirt/compute/v3"
