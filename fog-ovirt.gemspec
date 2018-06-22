@@ -20,15 +20,15 @@ Gem::Specification.new do |spec|
 
   spec.require_paths = ["lib"]
 
-  spec.add_dependency("fog-core", "~> 1.45")
+  spec.add_dependency("fog-core")
   spec.add_dependency("fog-json")
-  spec.add_dependency("fog-xml", "~> 0.1.1")
+  spec.add_dependency("fog-xml")
   spec.add_dependency("ovirt-engine-sdk", ">= 4.1.3")
   spec.add_dependency("rbovirt", "~> 0.1.5")
 
-  spec.add_development_dependency "bundler", "~> 1.10"
-  spec.add_development_dependency "pry", "~> 0.10"
-  spec.add_development_dependency "rake", "~> 10.0"
+  spec.add_development_dependency "bundler"
+  spec.add_development_dependency "pry"
+  spec.add_development_dependency "rake"
   spec.add_development_dependency "rubocop", "~> 0.52"
-  spec.add_development_dependency "shindo", "~> 0.3"
+  spec.add_development_dependency "shindo"
 end
