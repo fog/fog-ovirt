@@ -55,7 +55,6 @@ module Fog
 
       def self.new(options = {})
         super(options)
-
         # rubocop:disable Style/ConditionalAssignment
         if options[:api_version] == "v4"
           @client = Fog::Compute::Ovirt::V4.new(options)
@@ -69,11 +68,11 @@ module Fog
       def method_missing(symbol, *args)
         @client.__send__(symbol, *args)
       end
+      # rubocop:enable Style/MethodMissingSuper, Style/MissingRespondToMissing
 
       def respond_to?(symbol, include_all = false)
         @client.respond_to?(symbol, include_all)
       end
-      # rubocop:enable Style/MethodMissingSuper, Style/MissingRespondToMissing
 
       class Mock
         def initialize(options = {})
@@ -90,11 +89,11 @@ module Fog
         def method_missing(symbol, *args)
           @client.__send__(symbol, *args)
         end
+        # rubocop:enable Style/MethodMissingSuper, Style/MissingRespondToMissing
 
         def respond_to?(symbol, include_all = false)
           @client.respond_to?(symbol, include_all)
         end
-        # rubocop:enable Style/MethodMissingSuper, Style/MissingRespondToMissing
       end
 
       class Real
@@ -112,11 +111,11 @@ module Fog
         def method_missing(symbol, *args)
           @client.send(symbol, *args)
         end
+        # rubocop:enable Style/MethodMissingSuper, Style/MissingRespondToMissing
 
         def respond_to?(symbol, include_all = false)
           @client.respond_to?(symbol, include_all)
         end
-        # rubocop:enable Style/MethodMissingSuper, Style/MissingRespondToMissing
       end
     end
   end
