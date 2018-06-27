@@ -25,7 +25,7 @@ module Fog
             wrap_attribute(attrs, :host, OvirtSDK4::Host)
             wrap_attribute(attrs, :quota, OvirtSDK4::Quota)
             wrap_attribute(attrs, :instance_type, OvirtSDK4::InstanceType)
-            attrs[:high_availability] = OvirtSDK4::HighAvailability.new(:enabled => attrs[:ha]) unless attrs[:ha].nil?
+            attrs[:high_availability] = OvirtSDK4::HighAvailability.new(:enabled => attrs[:ha] == "1") if attrs[:ha].present?
             attrs[:original_template] = if attrs[:original_template].present?
                                           OvirtSDK4::Template.new(:id => attrs[:original_template])
                                         else
