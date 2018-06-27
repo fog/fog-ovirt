@@ -24,7 +24,7 @@ module Fog
           end
           # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
-          # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+          # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/MethodLength
           def create_vm(attrs)
             attrs = attrs.dup
 
@@ -57,15 +57,15 @@ module Fog
               cpu_topology = OvirtSDK4::CpuTopology.new(:cores => attrs.fetch(:cores, "1"), :sockets => attrs.fetch(:sockets, "1"))
               attrs[:cpu] = OvirtSDK4::Cpu.new(:topology => cpu_topology)
             end
-
             attrs[:memory_policy] = OvirtSDK4::MemoryPolicy.new(:guaranteed => attrs[:memory]) if attrs[:memory].to_i < Fog::Compute::Ovirt::DISK_SIZE_TO_GB
+            attrs[:high_availability] = OvirtSDK4::HighAvailability.new(:enabled => attrs[:ha] == "1") if attrs[:ha].present?
 
             # TODO: handle cloning from template
             process_vm_opts(attrs)
             new_vm = OvirtSDK4::Vm.new(attrs)
             vms_service.add(new_vm)
           end
-          # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+          # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/MethodLength
 
           # rubocop:disable Metrics/AbcSize
           def update_os_attrs(attrs)
