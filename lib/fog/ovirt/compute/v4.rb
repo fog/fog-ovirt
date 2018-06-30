@@ -10,6 +10,7 @@ module Fog
         request :vm_action
         request :destroy_vm
         request :create_vm
+        request :update_vm
         request :datacenters
         request :storage_domains
         request :list_virtual_machines
