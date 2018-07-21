@@ -44,11 +44,12 @@ module Fog
             vms_service = client.system_service.vms_service
             attrs[:instance_type] = attrs[:instance_type].present? ? client.system_service.instance_types_service.instance_type_service(attrs[:instance_type]).get : nil
 
-            attrs[:template] = if attrs[:template].present?
-                                 client.system_service.templates_service.template_service(attrs[:template]).get
-                               else
-                                 client.system_service.get.special_objects.blank_template
-                               end
+            if attrs[:template].present?
+              attrs[:template] = client.system_service.templates_service.template_service(attrs[:template]).get
+            else
+              attrs[:template] = client.system_service.get.special_objects.blank_template
+              update_os_attrs(attrs)
+            end
 
             attrs[:comment] ||= ""
             attrs[:quota] = attrs[:quota].present? ? client.system_service.data_centers_service.data_center_service(datacenter).quotas_service.quota_service(attrs[:quota]).get : nil
@@ -65,6 +66,17 @@ module Fog
             vms_service.add(new_vm)
           end
           # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+
+          # rubocop:disable Metrics/AbcSize
+          def update_os_attrs(attrs)
+            attrs[:os] ||= {}
+            attrs[:os][:type] ||= "Other OS"
+            attrs[:os][:boot] ||= [attrs.fetch(:boot_dev1, OvirtSDK4::BootDevice::NETWORK), attrs.fetch(:boot_dev2, OvirtSDK4::BootDevice::HD)]
+            attrs[:os][:boot] = attrs[:os][:boot].without(attrs["first_boot_dev"]).prepend(attrs["first_boot_dev"]) if attrs["first_boot_dev"]
+
+            attrs[:os] = OvirtSDK4::OperatingSystem.new(:type => attrs[:os][:type], :boot => OvirtSDK4::Boot.new(:devices => attrs[:os][:boot]))
+          end
+          # rubocop:enable Metrics/AbcSize
         end
 
         class Mock

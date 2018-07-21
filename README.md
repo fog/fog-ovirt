@@ -46,7 +46,7 @@ Version 1.0.2 adds support API V4 as well.
 The first version does not give full support.
 The supported requests for API V4 are:
 
-    :vm_action, :destroy_vm, :create_vm
+    :vm_action, :destroy_vm, :create_vm, :update_vm (without os changes)
     :datacenters
     :storage_domains
     :list_virtual_machines, :get_virtual_machine
