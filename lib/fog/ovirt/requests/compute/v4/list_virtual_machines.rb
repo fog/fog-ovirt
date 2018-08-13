@@ -7,10 +7,8 @@ module Fog
             filters = filters.dup
             page = filters.delete(:page)
             without_details = filters.delete(:without_details)
-
             filters[:all_content] = true unless without_details
-            filters[:search] ||= ""
-            filters[:search] += " page #{page}"
+            filters[:search] = create_search_by_datacenter(:search => filters[:search], :datacenter => datacenter_hash[:name], :page => page)
             client.system_service.vms_service.list(filters).map { |ovirt_obj| ovirt_attrs ovirt_obj }
           end
         end
