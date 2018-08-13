@@ -3,8 +3,9 @@ module Fog
     class Ovirt
       class V4
         class Real
-          def list_clusters(filters = {})
-            client.system_service.clusters_service.list(filters).map { |ovirt_obj| ovirt_attrs ovirt_obj }
+          def list_clusters(opts = {})
+            opts[:search] = create_search_by_datacenter(:search => opts[:search], :datacenter => datacenter_hash[:name])
+            client.system_service.clusters_service.list(opts).map { |ovirt_obj| ovirt_attrs(ovirt_obj) }
           end
         end
         class Mock

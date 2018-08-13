@@ -148,7 +148,6 @@ module Fog
               :username => username,
               :password => password
             }
-
             @datacenter = options[:ovirt_datacenter]
             connection_opts[:ca_file]  = options[:ca_file]
             connection_opts[:ca_certs] = [OpenSSL::X509::Certificate.new(options[:public_key])] if options[:public_key].present?
@@ -167,11 +166,19 @@ module Fog
           end
 
           def datacenter_hash
+            @datacenter_hash ||= datacenters.find { |x| x[:id] == @datacenter } if @datacenter
             @datacenter_hash ||= datacenters.first
           end
 
           def blank_template
             @blank_template ||= client.system_service.get.special_objects.blank_template
+          end
+
+          def create_search_by_datacenter(search:, datacenter:, page: nil)
+            search ||= ""
+            search += " datacenter=#{datacenter}" if datacenter
+            search += " page #{page}" if page
+            search
           end
 
           private
