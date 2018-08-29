@@ -10,7 +10,7 @@ module Fog
 
             filters[:all_content] = true unless without_details
             filters[:search] ||= ""
-            filters[:search] += " page #{page}"
+            filters[:search] += " page #{page}" if page
             client.system_service.vms_service.list(filters).map { |ovirt_obj| ovirt_attrs ovirt_obj }
           end
         end
