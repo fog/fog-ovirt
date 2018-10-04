@@ -3,24 +3,58 @@ module Fog
     class Ovirt
       class V4
         class Real
+          DEFAULT_PROVISIONED_SIZE = 1 * 2**30
+          DISK_INTERFACES = {
+            "virtio" => OvirtSDK4::DiskInterface::VIRTIO,
+            "virtio_scsi" => OvirtSDK4::DiskInterface::VIRTIO_SCSI,
+            "virtio_vscsi" => OvirtSDK4::DiskInterface::VIRTIO_VSCSI,
+            "ide" => OvirtSDK4::DiskInterface::IDE
+          }.freeze
+
           def check_for_option(opts, name)
             opts[name.to_sym] || opts[(name + "_name").to_sym]
           end
 
           # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
           def process_vm_opts(opts)
-            return unless check_for_option(opts, "template") && check_for_option(opts, "storagedomain")
+            return unless check_for_option(opts, "template") && check_for_option(opts, :disks)
 
             template_id = opts[:template] || client.system_service.templates_service.search(:name => opts[:template_name]).first.id
-            template_disks = client.system_service.templates_service.template_service(template_id).get.disk_attachments
-            storagedomain_id = opts[:storagedomain] || storagedomains.select { |s| s.name == opts[:storagedomain_name] }.first.id
+            template_disks = client.system_service.templates_service.template_service(template_id).disk_attachments_service.list
 
             # Make sure the 'clone' option is set if any of the disks defined by
             # the template is stored on a different storage domain than requested
-            opts[:clone] = true unless opts[:clone] == true || template_disks.empty? || template_disks.all? { |d| d.storage_domain == storagedomain_id }
+            opts[:clone] = true unless template_disks.empty?
 
-            # Create disks map
-            opts[:disks] = template_disks.collect { |d| { :id => d.id, :storagedomain => storagedomain_id } }
+            # Create disks map "clone" from disks, rather then template
+            if opts[:disks] && !opts[:disks].empty?
+              disks = []
+              opts[:disks].each do |rec|
+                disk = {
+                  :name => rec[:name],
+                  :descriotion => rec[:description] || "",
+                  :format => OvirtSDK4::DiskFormat::COW,
+                  :provisioned_size => rec[:provisioned_size] || DEFAULT_PROVISIONED_SIZE,
+                  :interface => DISK_INTERFACES[rec[:interface]] || OvirtSDK4::DiskInterface::VIRTIO,
+                  :bootable => rec[:bootable] || false,
+                  :active => rec[:active] || true,
+                  :storage_domains => [{
+                    :id => rec[:storage_domain]
+                  }]
+                }
+
+                disks << OvirtSDK4::DiskAttachment.new(disk)
+                opts[:disks] = disks
+              end
+
+            elsif opts[:clone]
+              # clone from template
+              opts[:disks] = template_disks.collect do |d|
+                OvirtSDK4::DiskAttachment.new({ :id => d.id })
+              end
+            end
+
+            opts[:disks]
           end
           # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
@@ -60,7 +94,6 @@ module Fog
             attrs[:memory_policy] = OvirtSDK4::MemoryPolicy.new(:guaranteed => attrs[:memory]) if attrs[:memory].to_i < Fog::Compute::Ovirt::DISK_SIZE_TO_GB
             attrs[:high_availability] = OvirtSDK4::HighAvailability.new(:enabled => attrs[:ha] == "1") if attrs[:ha].present?
 
-            # TODO: handle cloning from template
             process_vm_opts(attrs)
             new_vm = OvirtSDK4::Vm.new(attrs)
             vms_service.add(new_vm)
