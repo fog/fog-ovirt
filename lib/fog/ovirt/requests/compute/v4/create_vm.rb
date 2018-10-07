@@ -3,11 +3,10 @@ module Fog
     class Ovirt
       class V4
         class Real
-          DEFAULT_PROVISIONED_SIZE = 1 * 2**30
+          DEFAULT_PROVISIONED_SIZE = 2**30
           DISK_INTERFACES = {
             "virtio" => OvirtSDK4::DiskInterface::VIRTIO,
             "virtio_scsi" => OvirtSDK4::DiskInterface::VIRTIO_SCSI,
-            "virtio_vscsi" => OvirtSDK4::DiskInterface::VIRTIO_VSCSI,
             "ide" => OvirtSDK4::DiskInterface::IDE
           }.freeze
 
@@ -22,8 +21,6 @@ module Fog
             template_id = opts[:template] || client.system_service.templates_service.search(:name => opts[:template_name]).first.id
             template_disks = client.system_service.templates_service.template_service(template_id).disk_attachments_service.list
 
-            # Make sure the 'clone' option is set if any of the disks defined by
-            # the template is stored on a different storage domain than requested
             opts[:clone] = true unless template_disks.empty?
 
             # Create disks map "clone" from disks, rather then template
