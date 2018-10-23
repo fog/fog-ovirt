@@ -51,7 +51,7 @@ module Fog
               value = obj.instance_variable_get(v)
 
               if key == :network
-                opts[key] = client.follow_link(obj.vnic_profile).network.id
+                opts[key] = obj.vnic_profile.present? ? client.follow_link(obj.vnic_profile).network.id : value
                 next
               end
 
