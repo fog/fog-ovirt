@@ -76,7 +76,7 @@ module Fog
             case value
             when OvirtSDK4::List
               value.to_a
-            when Array, Hash, DateTime
+            when Array, Hash, DateTime, TrueClass, FalseClass
               value
             when OvirtSDK4::HighAvailability
               opts[:ha] = value.enabled
