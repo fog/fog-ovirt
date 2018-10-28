@@ -80,6 +80,7 @@ module Fog
               value
             when OvirtSDK4::HighAvailability
               opts[:ha] = value.enabled
+              value
             when OvirtSDK4::TemplateVersion
               OpenStruct.new(:version_name => value.version_name, :version_number => value.version_number)
             when OvirtSDK4::Mac
