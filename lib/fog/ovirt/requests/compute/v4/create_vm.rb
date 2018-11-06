@@ -3,26 +3,23 @@ module Fog
     class Ovirt
       class V4
         class Real
-          def check_for_option(opts, name)
-            opts[name.to_sym] || opts[(name + "_name").to_sym]
+          def create_disk_attachment_from_disk(disk_to_attachment)
+            storage_domain = client.system_service.storage_domains_service.storage_domain_service(disk_to_attachment["storage_domain"]).get
+
+            disk = {
+              :id => disk_to_attachment["id"],
+              :format => disk_to_attachment.fetch("format", OvirtSDK4::DiskFormat::COW),
+              :sparse => disk_to_attachment.fetch("sparse", true),
+              :storage_domains => [storage_domain]
+            }
+
+            OvirtSDK4::DiskAttachment.new(:disk => disk)
           end
 
-          # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-          def process_vm_opts(opts)
-            return unless check_for_option(opts, "template") && check_for_option(opts, "storagedomain")
-
-            template_id = opts[:template] || client.system_service.templates_service.search(:name => opts[:template_name]).first.id
-            template_disks = client.system_service.templates_service.template_service(template_id).get.disk_attachments
-            storagedomain_id = opts[:storagedomain] || storagedomains.select { |s| s.name == opts[:storagedomain_name] }.first.id
-
-            # Make sure the 'clone' option is set if any of the disks defined by
-            # the template is stored on a different storage domain than requested
-            opts[:clone] = true unless opts[:clone] == true || template_disks.empty? || template_disks.all? { |d| d.storage_domain == storagedomain_id }
-
-            # Create disks map
-            opts[:disks] = template_disks.collect { |d| { :id => d.id, :storagedomain => storagedomain_id } }
+          def process_vm_disks(opts)
+            opts[:disk_attachments] = opts[:disks].map { |disk| create_disk_attachment_from_disk(disk) }
+            opts.delete(:disks)
           end
-          # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
           # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/MethodLength
           def create_vm(attrs)
@@ -61,10 +58,10 @@ module Fog
             attrs[:memory_policy] = OvirtSDK4::MemoryPolicy.new(:guaranteed => attrs[:memory]) if attrs[:memory].to_i < Fog::Compute::Ovirt::DISK_SIZE_TO_GB
             attrs[:high_availability] = OvirtSDK4::HighAvailability.new(:enabled => attrs[:ha] == "1") if attrs[:ha].present?
 
-            # TODO: handle cloning from template
-            process_vm_opts(attrs)
+            process_vm_disks(attrs) if attrs[:clone] == true && attrs[:disks].present?
+
             new_vm = OvirtSDK4::Vm.new(attrs)
-            vms_service.add(new_vm)
+            vms_service.add(new_vm, :clone => attrs[:clone])
           end
           # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/MethodLength
 
