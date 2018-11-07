@@ -142,7 +142,7 @@ module Fog
             url        = options[:ovirt_url]        || "https://#{server}:#{port}#{api_path}"
 
             connection_opts = {
-              :url      => url,
+              :url => url,
               :username => username,
               :password => password
             }

@@ -8,7 +8,7 @@ Fog.mock! if ENV["FOG_MOCK"] == "true"
 if Fog.mock?
   Fog.credentials = {
     :ovirt_url => "http://ovirt:8080/api",
-    :ovirt_username                   => "admin@internal",
-    :ovirt_password                   => "123123"
+    :ovirt_username => "admin@internal",
+    :ovirt_password => "123123"
   }.merge(Fog.credentials)
 end
