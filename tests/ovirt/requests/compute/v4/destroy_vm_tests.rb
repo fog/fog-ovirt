@@ -1,8 +1,6 @@
 Shindo.tests("Fog::Compute[:ovirt] v4 | vm_destroy request", ["ovirt"]) do
   compute = Fog::Compute.new(:provider => :ovirt, :api_version => "v4")
-  if compute.servers.all(:search => "fog-*").empty?
-    compute.create_vm(:name => "fog-" + Time.now.to_i.to_s, :cluster_name => "Default")
-  end
+  compute.create_vm(:name => "fog-" + Time.now.to_i.to_s, :cluster_name => "Default") if compute.servers.all(:search => "fog-*").empty?
   vm_id = compute.servers.all(:search => "fog-*").last.id
 
   tests("The response should") do

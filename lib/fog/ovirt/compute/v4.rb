@@ -63,9 +63,7 @@ module Fog
               # ignore nil values
               next if value.nil?
 
-              if key != :data_center && value.respond_to?(:href) && value.href && value.respond_to?(:id)
-                opts[key] = value.id
-              end
+              opts[key] = value.id if key != :data_center && value.respond_to?(:href) && value.href && value.respond_to?(:id)
 
               opts[key] ||= get_attr_value(value, opts)
             end
