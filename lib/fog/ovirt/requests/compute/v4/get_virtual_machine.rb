@@ -4,7 +4,7 @@ module Fog
       class V4
         class Real
           def get_virtual_machine(id)
-            ovirt_attrs client.system_service.vms_service.vm_service(id).get
+            ovirt_attrs client.system_service.vms_service.vm_service(id).get(:all_content => true)
           end
         end
         class Mock
