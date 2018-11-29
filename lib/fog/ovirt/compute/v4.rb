@@ -95,6 +95,7 @@ module Fog
                 :address => value.address,
                 :port => value.port,
                 :secure_port => value.secure_port,
+                :keyboard_layout => value.keyboard_layout,
                 :subject => subject,
                 :monitors => value.monitors
               }
