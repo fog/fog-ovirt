@@ -4,7 +4,7 @@ module Fog
       class V4
         class Real
           def vm_ticket(id, options = {})
-            client.system_service.vms_service.vm_service(id).ticket(options)
+            client.system_service.vms_service.vm_service(id).ticket(options).value
           end
         end
 
