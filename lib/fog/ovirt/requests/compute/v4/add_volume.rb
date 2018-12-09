@@ -27,7 +27,7 @@ module Fog
             options[:type] ||= OvirtSDK4::DiskType::DATA
             options[:format] ||= OvirtSDK4::DiskFormat::COW
 
-            options[:sparse] = true unless options[:sparse].present?
+            # options[:sparse] = true unless options[:sparse].present?
             options[:quota] = options[:quota].present? ? client.system_service.data_centers_service.data_center_service(datacenter).quotas_service.quota_service(options[:quota]).get : nil
 
             options[:disk] ||= {}
