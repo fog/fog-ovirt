@@ -13,6 +13,7 @@ module Fog
           extend ::Fog::Compute::Ovirt::V4::Shared
 
           def update_interface(id, options)
+            options = convert_string_to_bool(options)
             check_arguments(id, options)
 
             interface_id = options[:id]

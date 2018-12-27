@@ -14,7 +14,7 @@ module Fog
 
           def update_volume(id, options)
             check_arguments(id, options)
-
+            options = convert_string_to_bool(options)
             disk_id = options[:id]
             disk_attachment = client.system_service.vms_service.vm_service(id).disk_attachments_service.attachment_service(disk_id)
             disk_attachment.update(disk_attachment, options)

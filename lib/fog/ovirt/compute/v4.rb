@@ -76,7 +76,7 @@ module Fog
             case value
             when OvirtSDK4::List
               value.to_a
-            when Array, Hash, DateTime, TrueClass, FalseClass
+            when Array, Hash, DateTime
               value
             when OvirtSDK4::HighAvailability
               opts[:ha] = value.enabled
@@ -107,6 +107,17 @@ module Fog
             end
           end
           # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity
+
+          def convert_string_to_bool(opts)
+            opts.each do |key, value|
+              if value == "true"
+                opts[key] = true
+              elsif value == "false"
+                opts[key] = false
+              end
+            end
+            opts
+          end
         end
 
         class Mock

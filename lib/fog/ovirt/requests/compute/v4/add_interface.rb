@@ -9,7 +9,7 @@ module Fog
             vm = client.system_service.vms_service.vm_service(id)
             nics_service = vm.nics_service
             options = options.dup
-
+            options = convert_string_to_bool(options)
             if options[:network].present?
               network = client.system_service.networks_service.network_service(options[:network]).get
 

@@ -6,6 +6,7 @@ module Fog
           # rubocop:disable Metrics/AbcSize
           def update_vm(attrs)
             attrs = attrs.dup
+            attrs = convert_string_to_bool(attrs)
             vm_service = client.system_service.vms_service.vm_service(attrs[:id])
 
             if attrs[:cores].present?

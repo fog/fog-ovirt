@@ -4,6 +4,7 @@ module Fog
       class V4
         class Real
           def vm_ticket(id, options = {})
+            options = convert_string_to_bool(options)
             client.system_service.vms_service.vm_service(id).ticket(options).value
           end
         end
