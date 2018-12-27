@@ -27,6 +27,7 @@ module Fog
           # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/MethodLength
           def create_vm(attrs)
             attrs = attrs.dup
+            attrs = convert_string_to_bool(attrs)
 
             if attrs[:cluster].present?
               attrs[:cluster] = client.system_service.clusters_service.cluster_service(attrs[:cluster]).get
