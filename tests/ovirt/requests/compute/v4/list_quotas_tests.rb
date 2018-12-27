@@ -1,4 +1,4 @@
-Shindo.tests("Fog::Compute[:ovirt] v4 | quotas request", ["ovirt"]) do
+Shindo.tests("Fog::Ovirt::Compute.new v4 | quotas request", ["ovirt"]) do
   compute = Fog::Compute.new(:provider => :ovirt, :api_version => "v4")
 
   tests("When listing all quotas") do

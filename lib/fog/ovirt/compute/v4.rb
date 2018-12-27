@@ -1,6 +1,6 @@
 module Fog
-  module Compute
-    class Ovirt
+  module Ovirt
+    class Compute
       class V4 < Fog::Service
         requires   :ovirt_username, :ovirt_password
         recognizes :ovirt_url,      :ovirt_server, :ovirt_port, :ovirt_api_path, :ovirt_datacenter,

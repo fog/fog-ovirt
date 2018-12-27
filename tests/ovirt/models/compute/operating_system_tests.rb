@@ -1,5 +1,5 @@
-Shindo.tests("Fog::Compute[:ovirt] | operating_system model", ["ovirt"]) do
-  operating_systems = Fog::Compute[:ovirt].operating_systems
+Shindo.tests("Fog::Ovirt::Compute.new | operating_system model", ["ovirt"]) do
+  operating_systems = Fog::Ovirt::Compute.new.operating_systems
   operating_system = operating_systems.last
 
   tests("The operating_system model should") do
@@ -18,6 +18,6 @@ Shindo.tests("Fog::Compute[:ovirt] | operating_system model", ["ovirt"]) do
         end
       end
     end
-    test("be a kind of Fog::Compute::Ovirt::OperatingSystem") { operating_system.is_a? Fog::Compute::Ovirt::OperatingSystem }
+    test("be a kind of Fog::Ovirt::Compute::OperatingSystem") { operating_system.is_a? Fog::Ovirt::Compute::OperatingSystem }
   end
 end

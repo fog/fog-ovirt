@@ -1,5 +1,5 @@
-Shindo.tests("Fog::Compute[:ovirt]", ["ovirt"]) do
-  compute = Fog::Compute[:ovirt]
+Shindo.tests("Fog::Ovirt::Compute.new", ["ovirt"]) do
+  compute = Fog::Ovirt::Compute.new
 
   tests("Compute attributes") do
     %w[ovirt_attrs].each do |attr|

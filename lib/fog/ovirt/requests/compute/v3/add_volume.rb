@@ -1,6 +1,6 @@
 module Fog
-  module Compute
-    class Ovirt
+  module Ovirt
+    class Compute
       class V3
         class Real
           DISK_SIZE_TO_GB = 1_073_741_824

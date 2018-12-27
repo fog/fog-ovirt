@@ -2,10 +2,10 @@ require "fog/core/collection"
 require "fog/ovirt/models/compute/server"
 
 module Fog
-  module Compute
-    class Ovirt
+  module Ovirt
+    class Compute
       class Servers < Fog::Collection
-        model Fog::Compute::Ovirt::Server
+        model Fog::Ovirt::Compute::Server
 
         def all(filters = {})
           load service.list_virtual_machines(filters)

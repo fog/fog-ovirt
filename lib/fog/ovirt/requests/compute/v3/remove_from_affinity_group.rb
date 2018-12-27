@@ -1,6 +1,6 @@
 module Fog
-  module Compute
-    class Ovirt
+  module Ovirt
+    class Compute
       class V3
         class Real
           def remove_from_affinity_group(id, options = {})

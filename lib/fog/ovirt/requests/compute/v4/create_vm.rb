@@ -1,6 +1,6 @@
 module Fog
-  module Compute
-    class Ovirt
+  module Ovirt
+    class Compute
       class V4
         class Real
           def create_disk_attachment_from_disk(disk_to_attachment)
@@ -55,7 +55,7 @@ module Fog
               cpu_topology = OvirtSDK4::CpuTopology.new(:cores => attrs.fetch(:cores, "1"), :sockets => attrs.fetch(:sockets, "1"))
               attrs[:cpu] = OvirtSDK4::Cpu.new(:topology => cpu_topology)
             end
-            attrs[:memory_policy] = OvirtSDK4::MemoryPolicy.new(:guaranteed => attrs[:memory]) if attrs[:memory].to_i < Fog::Compute::Ovirt::DISK_SIZE_TO_GB
+            attrs[:memory_policy] = OvirtSDK4::MemoryPolicy.new(:guaranteed => attrs[:memory]) if attrs[:memory].to_i < Fog::Ovirt::Compute::DISK_SIZE_TO_GB
             attrs[:high_availability] = OvirtSDK4::HighAvailability.new(:enabled => attrs[:ha] == "1") if attrs[:ha].present?
 
             process_vm_disks(attrs) if attrs[:clone] == true && attrs[:disks].present?

@@ -1,4 +1,4 @@
-Shindo.tests("Fog::Compute[:ovirt] v4 | update_volume request", ["ovirt"]) do
+Shindo.tests("Fog::Ovirt::Compute.new v4 | update_volume request", ["ovirt"]) do
   compute = Fog::Compute.new(:provider => :ovirt, :api_version => "v4")
   compute.create_vm(:name => "fog-" + Time.now.to_i.to_s, :cluster_name => "Default") if compute.servers.all(:search => "fog-*").empty?
   vm_id = compute.servers.all(:search => "fog-*").last

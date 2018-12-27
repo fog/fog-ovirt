@@ -1,6 +1,6 @@
 module Fog
-  module Compute
-    class Ovirt
+  module Ovirt
+    class Compute
       class Template < Fog::Model
         identity :id
 
@@ -23,14 +23,14 @@ module Fog
         attribute :version
 
         def interfaces
-          attributes[:interfaces] ||= id.nil? ? [] : Fog::Compute::Ovirt::Interfaces.new(
+          attributes[:interfaces] ||= id.nil? ? [] : Fog::Ovirt::Compute::Interfaces.new(
             :service => service,
             :vm => self
           )
         end
 
         def volumes
-          attributes[:volumes] ||= id.nil? ? [] : Fog::Compute::Ovirt::Volumes.new(
+          attributes[:volumes] ||= id.nil? ? [] : Fog::Ovirt::Compute::Volumes.new(
             :service => service,
             :vm => self
           )

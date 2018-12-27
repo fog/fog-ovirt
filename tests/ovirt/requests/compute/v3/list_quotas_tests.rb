@@ -1,5 +1,5 @@
-Shindo.tests("Fog::Compute[:ovirt] | quotas request", ["ovirt"]) do
-  compute = Fog::Compute[:ovirt]
+Shindo.tests("Fog::Ovirt::Compute | quotas request", ["ovirt"]) do
+  compute = Fog::Ovirt::Compute.new
 
   tests("When listing all quotas") do
     response = compute.quotas

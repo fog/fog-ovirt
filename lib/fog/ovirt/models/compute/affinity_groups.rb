@@ -2,10 +2,10 @@ require "fog/core/collection"
 require "fog/ovirt/models/compute/affinity_group"
 
 module Fog
-  module Compute
-    class Ovirt
+  module Ovirt
+    class Compute
       class AffinityGroups < Fog::Collection
-        model Fog::Compute::Ovirt::AffinityGroup
+        model Fog::Ovirt::Compute::AffinityGroup
 
         def all(filters = {})
           load service.list_affinity_groups(filters)

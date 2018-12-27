@@ -1,5 +1,5 @@
-Shindo.tests("Fog::Compute[:ovirt] | cluster model", ["ovirt"]) do
-  clusters = Fog::Compute[:ovirt].clusters
+Shindo.tests("Fog::Ovirt::Compute.new | cluster model", ["ovirt"]) do
+  clusters = Fog::Ovirt::Compute.new.clusters
   cluster = clusters.last
 
   tests("The cluster model should") do
@@ -23,6 +23,6 @@ Shindo.tests("Fog::Compute[:ovirt] | cluster model", ["ovirt"]) do
         end
       end
     end
-    test("be a kind of Fog::Compute::Ovirt::Cluster") { cluster.is_a? Fog::Compute::Ovirt::Cluster }
+    test("be a kind of Fog::Ovirt::Compute::Cluster") { cluster.is_a? Fog::Ovirt::Compute::Cluster }
   end
 end

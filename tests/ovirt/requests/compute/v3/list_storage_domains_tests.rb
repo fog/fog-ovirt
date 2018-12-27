@@ -1,5 +1,5 @@
-Shindo.tests("Fog::Compute[:ovirt] | storage_domains request", ["ovirt"]) do
-  compute = Fog::Compute[:ovirt]
+Shindo.tests("Fog::Ovirt::Compute | storage_domains request", ["ovirt"]) do
+  compute = Fog::Ovirt::Compute.new
 
   tests("When listing all storage_domains") do
     response = compute.storage_domains

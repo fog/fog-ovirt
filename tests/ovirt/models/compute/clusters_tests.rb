@@ -1,7 +1,7 @@
-Shindo.tests("Fog::Compute[:ovirt] | clusters collection", ["ovirt"]) do
-  clusters = Fog::Compute[:ovirt].clusters
+Shindo.tests("Fog::Ovirt::Compute.new | clusters collection", ["ovirt"]) do
+  clusters = Fog::Ovirt::Compute.new.clusters
 
   tests("The clusters collection") do
-    test("should be a kind of Fog::Compute::Ovirt::Clusters") { clusters.is_a? Fog::Compute::Ovirt::Clusters }
+    test("should be a kind of Fog::Ovirt::Compute::Clusters") { clusters.is_a? Fog::Ovirt::Compute::Clusters }
   end
 end

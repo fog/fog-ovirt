@@ -1,8 +1,8 @@
 require "fog/compute/models/server"
 
 module Fog
-  module Compute
-    class Ovirt
+  module Ovirt
+    class Compute
       class Server < Fog::Compute::Server
         # This will be the instance uuid which is globally unique across
         # a oVirt deployment.
@@ -53,7 +53,7 @@ module Fog
         end
 
         def interfaces
-          @interfaces ||= id.nil? ? [] : Fog::Compute::Ovirt::Interfaces.new(
+          @interfaces ||= id.nil? ? [] : Fog::Ovirt::Compute::Interfaces.new(
             :service => service,
             :vm => self
           )
@@ -75,7 +75,7 @@ module Fog
         end
 
         def volumes
-          @volumes ||= id.nil? ? [] : Fog::Compute::Ovirt::Volumes.new(
+          @volumes ||= id.nil? ? [] : Fog::Ovirt::Compute::Volumes.new(
             :service => service,
             :vm => self
           )
