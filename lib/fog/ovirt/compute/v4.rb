@@ -114,6 +114,10 @@ module Fog
                 opts[key] = true
               elsif value == "false"
                 opts[key] = false
+              elsif value.is_a? Hash
+                convert_string_to_bool(value)
+              elsif value.is_a? Array
+                value.map { |item| convert_string_to_bool(item) }
               end
             end
             opts
