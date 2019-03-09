@@ -33,6 +33,7 @@ module Fog
         request :list_template_volumes
         request :list_volumes
         request :add_volume
+        request :get_volume
         request :destroy_volume
         request :update_volume
         request :get_api_version
