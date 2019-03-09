@@ -1,0 +1,28 @@
+<disks>
+  <disk href="/api/disks/4d1abf9a-da81-4de2-bf20-f5f060018e05" id="4d1abf9a-da81-4de2-bf20-f5f060018e05">
+    <actions>
+      <link href="/api/disks/4d1abf9a-da81-4de2-bf20-f5f060018e05/export" rel="export"/>
+      <link href="/api/disks/4d1abf9a-da81-4de2-bf20-f5f060018e05/move" rel="move"/>
+      <link href="/api/disks/4d1abf9a-da81-4de2-bf20-f5f060018e05/copy" rel="copy"/>
+    </actions>
+    <name>Disk 2</name>
+    <link href="/api/disks/4d1abf9a-da81-4de2-bf20-f5f060018e05/permissions" rel="permissions"/>
+    <link href="/api/disks/4d1abf9a-da81-4de2-bf20-f5f060018e05/statistics" rel="statistics"/>
+    <alias>Disk 2</alias>
+    <image_id>d6034a90-39fa-46ee-888f-208a76f3baa4</image_id>
+    <storage_domains>
+      <storage_domain id="a23a4329-33b9-4246-a393-4f91071825b6"/>
+    </storage_domains>
+    <provisioned_size>4294967296</provisioned_size>
+    <actual_size>1073741824</actual_size>
+    <status>ok</status>
+    <interface>virtio</interface>
+    <format>cow</format>
+    <qcow_version>qcow2_v3</qcow_version>
+    <sparse>true</sparse>
+    <bootable>false</bootable>
+    <shareable>false</shareable>
+    <wipe_after_delete>false</wipe_after_delete>
+    <propagate_errors>false</propagate_errors>
+  </disk>
+</disks>
