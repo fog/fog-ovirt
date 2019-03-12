@@ -11,7 +11,7 @@ module Fog
           def list_quotas(_filters = {})
             xml = read_xml "quotas.xml"
             Nokogiri::XML(xml).xpath("/quotas/quota").map do |q|
-              ovirt_attrs OVIRT::Quotas.new(self, q)
+              ovirt_attrs OVIRT::Quota.new(self, q)
             end
           end
         end
