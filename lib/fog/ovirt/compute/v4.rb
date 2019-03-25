@@ -111,6 +111,7 @@ module Fog
           # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity
 
           def convert_string_to_bool(opts)
+            return opts unless opts.present?
             opts.each do |key, value|
               if value == "true"
                 opts[key] = true
