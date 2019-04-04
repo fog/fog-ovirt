@@ -190,7 +190,7 @@ module Fog
             @blank_template ||= client.system_service.get.special_objects.blank_template
           end
 
-          def create_search_by_datacenter(search:, datacenter:, page: nil)
+          def create_search_by_datacenter(search: nil, datacenter: nil, page: nil)
             search ||= ""
             search += " datacenter=#{datacenter}" if datacenter
             search += " page #{page}" if page
