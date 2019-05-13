@@ -13,7 +13,7 @@ module Fog
               :storage_domains => [storage_domain]
             }
 
-            OvirtSDK4::DiskAttachment.new(:disk => disk)
+            OvirtSDK4::DiskAttachment.new(:disk => disk, :pass_discard => disk_to_attachment["attachment_pass_discard"])
           end
 
           def process_vm_disks(opts)
@@ -57,6 +57,15 @@ module Fog
             end
             attrs[:memory_policy] = OvirtSDK4::MemoryPolicy.new(:guaranteed => attrs[:memory]) if attrs[:memory].to_i < Fog::Compute::Ovirt::DISK_SIZE_TO_GB
             attrs[:high_availability] = OvirtSDK4::HighAvailability.new(:enabled => attrs[:ha] == "1") if attrs[:ha].present?
+            if attrs[:ha].present?
+              search = options[:search] || format("datacenter=%<datacenter>s", :datacenter => datacenter)
+              attrs[:lease_storage_domain_id] = options[:lease_storage_domain] || storagedomains(:role => "data", :search => search).first.id
+              attrs[:lease] = OvirtSDK4::StorageDomainLease.new(
+                storage_domain => OvirtSDK4::StorageDomain.new(
+                  id => attrs[:lease_storage_domain_id]
+                )
+              )
+            end
 
             process_vm_disks(attrs) if attrs[:clone] == true && attrs[:disks].present?
 
