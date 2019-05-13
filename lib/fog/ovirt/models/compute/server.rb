@@ -32,6 +32,7 @@ module Fog
         attribute :ips
         attribute :ha
         attribute :ha_priority
+        attribute :lease_storage_domain
         attribute :clone
         attribute :disks
 
