@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Use so you can run in mock mode from the command line
 #
 # FOG_MOCK=true fog

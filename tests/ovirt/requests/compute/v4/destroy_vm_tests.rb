@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Shindo.tests("Fog::Ovirt::Compute v4 | vm_destroy request", ["ovirt"]) do
   compute = Fog::Ovirt::Compute.new(:api_version => "v4")
   compute.create_vm(:name => "fog-" + Time.now.to_i.to_s, :cluster_name => "Default") if compute.servers.all(:search => "fog-*").empty?

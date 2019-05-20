@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # rubocop:disable Metrics/BlockLength
 Shindo.tests("Fog::Ovirt::Compute.new | server model", ["ovirt"]) do
   servers = Fog::Ovirt::Compute.new.servers

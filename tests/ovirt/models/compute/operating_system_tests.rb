@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Shindo.tests("Fog::Ovirt::Compute.new | operating_system model", ["ovirt"]) do
   operating_systems = Fog::Ovirt::Compute.new.operating_systems
   operating_system = operating_systems.last

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Shindo.tests("Fog::Ovirt::Compute.new | servers collection", ["ovirt"]) do
   servers = Fog::Ovirt::Compute.new.servers
 

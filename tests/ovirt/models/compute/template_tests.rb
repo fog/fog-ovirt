@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Shindo.tests("Fog::Ovirt::Compute.new | template model", ["ovirt"]) do
   templates = Fog::Ovirt::Compute.new.templates
   template = templates.last

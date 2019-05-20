@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Compute < Fog::Bin
   class << self
     def class_for(key)

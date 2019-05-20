@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Shindo.tests("Fog::Ovirt::Compute.new | client", ["ovirt"]) do
   before do
     @client_mock = Object.new

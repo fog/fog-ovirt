@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "fog/core/collection"
 require "fog/ovirt/models/compute/operating_system"
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Shindo.tests("Fog::Ovirt::Compute | storage_domains request", ["ovirt"]) do
   compute = Fog::Ovirt::Compute.new
 

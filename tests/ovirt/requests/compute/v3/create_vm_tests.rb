@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Shindo.tests("Fog::Ovirt::Compute.new | vm_create request", "ovirt") do
   compute = Fog::Ovirt::Compute.new
   name_base = Time.now.to_i

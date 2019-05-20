@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Shindo.tests("Fog::Ovirt::Compute.new | interface model", ["ovirt"]) do
   interfaces = Fog::Ovirt::Compute.new.servers.last.interfaces
   interface = interfaces.last
