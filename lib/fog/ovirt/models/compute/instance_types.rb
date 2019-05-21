@@ -2,10 +2,10 @@ require "fog/core/collection"
 require "fog/ovirt/models/compute/instance_type"
 
 module Fog
-  module Compute
-    class Ovirt
+  module Ovirt
+    class Compute
       class InstanceTypes < Fog::Collection
-        model Fog::Compute::Ovirt::InstanceType
+        model Fog::Ovirt::Compute::InstanceType
 
         def all(filters = {})
           load service.list_instance_types(filters)

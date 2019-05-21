@@ -1,6 +1,6 @@
 module Fog
-  module Compute
-    class Ovirt
+  module Ovirt
+    class Compute
       class OperatingSystem < Fog::Model
         attr_accessor :raw
         identity :id

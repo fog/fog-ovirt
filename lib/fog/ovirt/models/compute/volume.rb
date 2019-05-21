@@ -1,6 +1,6 @@
 module Fog
-  module Compute
-    class Ovirt
+  module Ovirt
+    class Compute
       class Volume < Fog::Model
         attr_accessor :raw
         identity :id
@@ -19,11 +19,11 @@ module Fog
         attribute :wipe_after_delete
 
         def size_gb
-          attributes[:size_gb] ||= attributes[:size].to_i / Fog::Compute::Ovirt::DISK_SIZE_TO_GB if attributes[:size]
+          attributes[:size_gb] ||= attributes[:size].to_i / Fog::Ovirt::Compute::DISK_SIZE_TO_GB if attributes[:size]
         end
 
         def size_gb=(size)
-          attributes[:size] = size.to_i * Fog::Compute::Ovirt::DISK_SIZE_TO_GB if size
+          attributes[:size] = size.to_i * Fog::Ovirt::Compute::DISK_SIZE_TO_GB if size
         end
 
         def to_s

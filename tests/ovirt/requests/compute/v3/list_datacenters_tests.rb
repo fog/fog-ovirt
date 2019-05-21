@@ -1,5 +1,5 @@
-Shindo.tests("Fog::Compute[:ovirt] | datacenters request", ["ovirt"]) do
-  compute = Fog::Compute[:ovirt]
+Shindo.tests("Fog::Ovirt::Compute | datacenters request", ["ovirt"]) do
+  compute = Fog::Ovirt::Compute.new
 
   tests("When listing all datacenters") do
     response = compute.datacenters

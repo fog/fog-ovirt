@@ -1,11 +1,11 @@
-Shindo.tests("Fog::Compute[:ovirt] | client", ["ovirt"]) do
+Shindo.tests("Fog::Ovirt::Compute.new | client", ["ovirt"]) do
   before do
     @client_mock = Object.new
     def @client_mock.foo
       raise OVIRT::OvirtException, "Test"
     end
 
-    @object_under_test = Fog::Compute::Ovirt::ExceptionWrapper.new(@client_mock)
+    @object_under_test = Fog::Ovirt::Compute::ExceptionWrapper.new(@client_mock)
   end
 
   tests("Raises the right type of exception")

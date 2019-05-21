@@ -1,5 +1,5 @@
-Shindo.tests("Fog::Compute[:ovirt] v4 | vm_create request", "ovirt") do
-  compute = Fog::Compute.new(:provider => :ovirt, :api_version => "v4")
+Shindo.tests("Fog::Ovirt::Compute v4 | vm_create request", "ovirt") do
+  compute = Fog::Ovirt::Compute.new(:api_version => "v4")
   name_base = Time.now.to_i
 
   tests("Create VM") do

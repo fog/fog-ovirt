@@ -1,6 +1,6 @@
 module Fog
-  module Compute
-    class Ovirt
+  module Ovirt
+    class Compute
       class AffinityGroup < Fog::Model
         identity :id
 

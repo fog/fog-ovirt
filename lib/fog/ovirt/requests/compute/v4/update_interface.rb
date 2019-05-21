@@ -1,6 +1,6 @@
 module Fog
-  module Compute
-    class Ovirt
+  module Ovirt
+    class Compute
       class V4
         module Shared
           def check_arguments(id, options)
@@ -10,7 +10,7 @@ module Fog
         end
 
         class Real
-          extend ::Fog::Compute::Ovirt::V4::Shared
+          extend ::Fog::Ovirt::Compute::V4::Shared
 
           def update_interface(id, options)
             options = convert_string_to_bool(options)
@@ -23,7 +23,7 @@ module Fog
         end
 
         class Mock
-          extend ::Fog::Compute::Ovirt::V4::Shared
+          extend ::Fog::Ovirt::Compute::V4::Shared
 
           def update_interface(id, options)
             check_arguments(id, options)

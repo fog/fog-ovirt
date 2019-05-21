@@ -1,6 +1,6 @@
 module Fog
-  module Compute
-    class Ovirt
+  module Ovirt
+    class Compute
       class Quota < Fog::Model
         identity :id
 

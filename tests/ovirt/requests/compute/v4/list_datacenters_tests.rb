@@ -1,4 +1,4 @@
-Shindo.tests("Fog::Compute[:ovirt] v4 | datacenters request", ["ovirt"]) do
+Shindo.tests("Fog::Ovirt::Compute.new v4 | datacenters request", ["ovirt"]) do
   compute = Fog::Compute.new(:provider => :ovirt, :api_version => "v4")
 
   tests("When listing all datacenters") do

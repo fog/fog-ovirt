@@ -2,10 +2,10 @@ require "fog/core/collection"
 require "fog/ovirt/models/compute/cluster"
 
 module Fog
-  module Compute
-    class Ovirt
+  module Ovirt
+    class Compute
       class Clusters < Fog::Collection
-        model Fog::Compute::Ovirt::Cluster
+        model Fog::Ovirt::Compute::Cluster
 
         def all(filters = {})
           load service.list_clusters(filters)

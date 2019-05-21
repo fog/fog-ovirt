@@ -1,6 +1,6 @@
 module Fog
-  module Compute
-    class Ovirt
+  module Ovirt
+    class Compute
       class V4
         class Real
           def vm_start_with_cloudinit(options = {})

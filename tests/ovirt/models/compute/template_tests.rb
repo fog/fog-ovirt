@@ -1,5 +1,5 @@
-Shindo.tests("Fog::Compute[:ovirt] | template model", ["ovirt"]) do
-  templates = Fog::Compute[:ovirt].templates
+Shindo.tests("Fog::Ovirt::Compute.new | template model", ["ovirt"]) do
+  templates = Fog::Ovirt::Compute.new.templates
   template = templates.last
 
   tests("The template model should") do
@@ -21,6 +21,6 @@ Shindo.tests("Fog::Compute[:ovirt] | template model", ["ovirt"]) do
         end
       end
     end
-    test("be a kind of Fog::Compute::Ovirt::Template") { template.is_a? Fog::Compute::Ovirt::Template }
+    test("be a kind of Fog::Ovirt::Compute::Template") { template.is_a? Fog::Ovirt::Compute::Template }
   end
 end

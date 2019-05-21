@@ -1,5 +1,5 @@
-Shindo.tests("Fog::Compute[:ovirt] | interface model", ["ovirt"]) do
-  interfaces = Fog::Compute[:ovirt].servers.last.interfaces
+Shindo.tests("Fog::Ovirt::Compute.new | interface model", ["ovirt"]) do
+  interfaces = Fog::Ovirt::Compute.new.servers.last.interfaces
   interface = interfaces.last
 
   tests("The interface model should") do
@@ -20,6 +20,6 @@ Shindo.tests("Fog::Compute[:ovirt] | interface model", ["ovirt"]) do
         end
       end
     end
-    test("be a kind of Fog::Compute::Ovirt::Interface") { interface.is_a? Fog::Compute::Ovirt::Interface }
+    test("be a kind of Fog::Ovirt::Compute::Interface") { interface.is_a? Fog::Ovirt::Compute::Interface }
   end
 end

@@ -1,7 +1,7 @@
-Shindo.tests("Fog::Compute[:ovirt] | templates collection", ["ovirt"]) do
-  templates = Fog::Compute[:ovirt].templates
+Shindo.tests("Fog::Ovirt::Compute.new | templates collection", ["ovirt"]) do
+  templates = Fog::Ovirt::Compute.new.templates
 
   tests("The templates collection") do
-    test("should be a kind of Fog::Compute::Ovirt::Templates") { templates.is_a? Fog::Compute::Ovirt::Templates }
+    test("should be a kind of Fog::Ovirt::Compute::Templates") { templates.is_a? Fog::Ovirt::Compute::Templates }
   end
 end

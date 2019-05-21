@@ -1,6 +1,6 @@
 # rubocop:disable Metrics/BlockLength
-Shindo.tests("Fog::Compute[:ovirt] | server model", ["ovirt"]) do
-  servers = Fog::Compute[:ovirt].servers
+Shindo.tests("Fog::Ovirt::Compute.new | server model", ["ovirt"]) do
+  servers = Fog::Ovirt::Compute.new.servers
   server = servers.last
 
   tests("The server model should") do
@@ -42,7 +42,7 @@ Shindo.tests("Fog::Compute[:ovirt] | server model", ["ovirt"]) do
         end
       end
     end
-    test("be a kind of Fog::Compute::Ovirt::Server") { server.is_a? Fog::Compute::Ovirt::Server }
+    test("be a kind of Fog::Ovirt::Compute::Server") { server.is_a? Fog::Ovirt::Compute::Server }
   end
 end
 # rubocop:enable Metrics/BlockLength

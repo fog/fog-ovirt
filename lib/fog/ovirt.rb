@@ -3,11 +3,9 @@ require "fog/xml"
 require "fog/json"
 
 module Fog
-  module Compute
-    autoload :Ovirt, File.expand_path("ovirt/compute", __dir__)
-  end
-
   module Ovirt
+    autoload :Compute, "fog/ovirt/compute"
+
     extend Fog::Provider
 
     module Errors

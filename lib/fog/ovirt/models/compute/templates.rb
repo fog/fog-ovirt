@@ -2,10 +2,10 @@ require "fog/core/collection"
 require "fog/ovirt/models/compute/template"
 
 module Fog
-  module Compute
-    class Ovirt
+  module Ovirt
+    class Compute
       class Templates < Fog::Collection
-        model Fog::Compute::Ovirt::Template
+        model Fog::Ovirt::Compute::Template
 
         def all(filters = {})
           load service.list_templates(filters)

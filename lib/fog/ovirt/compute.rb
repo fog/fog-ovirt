@@ -1,6 +1,6 @@
 module Fog
-  module Compute
-    class Ovirt < Fog::Service
+  module Ovirt
+    class Compute < Fog::Service
       recognizes :api_version, :ovirt_username, :ovirt_password, :ovirt_url,
                  :ovirt_datacenter, :ovirt_ca_cert_store, :public_key
 
@@ -58,9 +58,9 @@ module Fog
 
         # rubocop:disable Style/ConditionalAssignment
         if options[:api_version] == "v4"
-          @client = Fog::Compute::Ovirt::V4.new(options)
+          @client = Fog::Ovirt::Compute::V4.new(options)
         else
-          @client = Fog::Compute::Ovirt::V3.new(options)
+          @client = Fog::Ovirt::Compute::V3.new(options)
         end
         # rubocop:enable Style/ConditionalAssignment
       end
@@ -78,11 +78,11 @@ module Fog
       class Mock
         def initialize(options = {})
           if options[:api_version] == "v4"
-            Fog::Compute::Ovirt::V4::Mock.send(:include, Fog::Compute::Ovirt::Collections)
-            @client = Fog::Compute::Ovirt::V4::Mock.new(options)
+            Fog::Ovirt::Compute::V4::Mock.send(:include, Fog::Ovirt::Compute::Collections)
+            @client = Fog::Ovirt::Compute::V4::Mock.new(options)
           else
-            Fog::Compute::Ovirt::V3::Mock.send(:include, Fog::Compute::Ovirt::Collections)
-            @client = Fog::Compute::Ovirt::V3::Mock.new(options)
+            Fog::Ovirt::Compute::V3::Mock.send(:include, Fog::Ovirt::Compute::Collections)
+            @client = Fog::Ovirt::Compute::V3::Mock.new(options)
           end
         end
 
@@ -100,11 +100,11 @@ module Fog
       class Real
         def initialize(options = {})
           if options[:api_version] == "v4"
-            Fog::Compute::Ovirt::V4::Real.send(:include, Fog::Compute::Ovirt::Collections)
-            @client = Fog::Compute::Ovirt::V4::Real.new(options)
+            Fog::Ovirt::Compute::V4::Real.send(:include, Fog::Ovirt::Compute::Collections)
+            @client = Fog::Ovirt::Compute::V4::Real.new(options)
           else
-            Fog::Compute::Ovirt::V3::Real.send(:include, Fog::Compute::Ovirt::Collections)
-            @client = Fog::Compute::Ovirt::V3::Real.new(options)
+            Fog::Ovirt::Compute::V3::Real.send(:include, Fog::Ovirt::Compute::Collections)
+            @client = Fog::Ovirt::Compute::V3::Real.new(options)
           end
         end
 
