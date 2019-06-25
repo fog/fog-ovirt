@@ -1,3 +1,5 @@
+require "fog/ovirt/compute/base"
+
 module Fog
   module Ovirt
     class Compute
@@ -76,7 +78,7 @@ module Fog
             case value
             when OvirtSDK4::List
               value.to_a
-            when Array, Hash, DateTime
+            when Array, Hash, DateTime, OvirtSDK4::Version
               value
             when OvirtSDK4::HighAvailability
               opts[:ha] = value.enabled
@@ -148,12 +150,13 @@ module Fog
           end
         end
 
-        class Real
+        class Real < Fog::Ovirt::Compute::Base
           include Shared
 
           # rubocop:disable Metrics/AbcSize
           def initialize(options = {})
             require "ovirtsdk4"
+            super(options)
             username   = options[:ovirt_username]
             password   = options[:ovirt_password]
             server     = options[:ovirt_server]
@@ -166,7 +169,6 @@ module Fog
               :username => username,
               :password => password
             }
-            @datacenter = options[:ovirt_datacenter]
             connection_opts[:ca_file]  = options[:ca_file]
             connection_opts[:ca_certs] = [OpenSSL::X509::Certificate.new(options[:public_key])] if options[:public_key].present?
 
@@ -179,13 +181,12 @@ module Fog
             api.product_info.version.full_version
           end
 
-          def datacenter
-            @datacenter ||= datacenter_hash[:id]
-          end
-
-          def datacenter_hash
-            @datacenter_hash ||= datacenters.find { |x| x[:id] == @datacenter } if @datacenter
-            @datacenter_hash ||= datacenters.first
+          def datacenter_version
+            if datacenter_hash && datacenter_hash[:version]
+              "#{datacenter_hash[:version].major}.#{datacenter_hash[:version].minor}"
+            else
+              super()
+            end
           end
 
           def blank_template
@@ -198,10 +199,6 @@ module Fog
             search += " page #{page}" if page
             search
           end
-
-          private
-
-          attr_reader :client
         end
       end
     end

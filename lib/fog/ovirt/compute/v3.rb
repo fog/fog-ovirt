@@ -1,3 +1,5 @@
+require "fog/ovirt/compute/base"
+
 module Fog
   module Ovirt
     class Compute
@@ -99,12 +101,13 @@ module Fog
           end
         end
 
-        class Real
+        class Real < Fog::Ovirt::Compute::Base
           include Shared
 
           # rubocop:disable Metrics/AbcSize
           def initialize(options = {})
             require "rbovirt"
+            super(options)
             username   = options[:ovirt_username]
             password   = options[:ovirt_password]
             server     = options[:ovirt_server]
@@ -127,9 +130,13 @@ module Fog
             client.api_version
           end
 
-          private
-
-          attr_reader :client
+          def datacenter_version
+            if datacenter_hash && datacenter_hash[:version]
+              datacenter_hash[:version]
+            else
+              super()
+            end
+          end
         end
       end
     end
