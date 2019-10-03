@@ -10,6 +10,7 @@ module Fog
         attribute :description
         attribute :memory
         attribute :cores
+        attribute :sockets
         attribute :creation_time
         attribute :os
         attribute :ha
