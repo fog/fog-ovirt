@@ -40,6 +40,8 @@ module Fog
             end
 
             vms_service = client.system_service.vms_service
+
+            attrs[:type] = attrs.fetch(:type, OvirtSDK4::VmType::SERVER)
             attrs[:instance_type] = attrs[:instance_type].present? ? client.system_service.instance_types_service.instance_type_service(attrs[:instance_type]).get : nil
 
             if attrs[:template].present?
