@@ -78,10 +78,10 @@ module Fog
       class Mock
         def initialize(options = {})
           if options[:api_version] == "v4"
-            Fog::Ovirt::Compute::V4::Mock.send(:include, Fog::Ovirt::Compute::Collections)
+            Fog::Ovirt::Compute::V4::Mock.include Fog::Ovirt::Compute::Collections
             @client = Fog::Ovirt::Compute::V4::Mock.new(options)
           else
-            Fog::Ovirt::Compute::V3::Mock.send(:include, Fog::Ovirt::Compute::Collections)
+            Fog::Ovirt::Compute::V3::Mock.include Fog::Ovirt::Compute::Collections
             @client = Fog::Ovirt::Compute::V3::Mock.new(options)
           end
         end
@@ -100,10 +100,10 @@ module Fog
       class Real
         def initialize(options = {})
           if options[:api_version] == "v4"
-            Fog::Ovirt::Compute::V4::Real.send(:include, Fog::Ovirt::Compute::Collections)
+            Fog::Ovirt::Compute::V4::Real.include Fog::Ovirt::Compute::Collections
             @client = Fog::Ovirt::Compute::V4::Real.new(options)
           else
-            Fog::Ovirt::Compute::V3::Real.send(:include, Fog::Ovirt::Compute::Collections)
+            Fog::Ovirt::Compute::V3::Real.include Fog::Ovirt::Compute::Collections
             @client = Fog::Ovirt::Compute::V3::Real.new(options)
           end
         end
