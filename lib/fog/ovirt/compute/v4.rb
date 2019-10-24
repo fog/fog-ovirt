@@ -111,20 +111,22 @@ module Fog
           end
           # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity
 
-          def convert_string_to_bool(opts)
-            return opts unless opts.present?
-            opts.each do |key, value|
-              if value == "true"
-                opts[key] = true
-              elsif value == "false"
-                opts[key] = false
-              elsif value.is_a? Hash
-                convert_string_to_bool(value)
-              elsif value.is_a? Array
-                value.map { |item| convert_string_to_bool(item) }
+          def convert_string_to_bool(value)
+            case value
+            when "true"
+              true
+            when "false"
+              false
+            when Array
+              value.map { |elem| convert_string_to_bool(elem) }
+            when Hash
+              value.each do |key, elem|
+                value[key] = convert_string_to_bool(elem)
               end
+              value
+            else
+              value
             end
-            opts
           end
         end
 
