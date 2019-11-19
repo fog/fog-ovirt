@@ -183,11 +183,11 @@ module Fog
           end
 
           def datacenter
-            @datacenter ||= datacenter_hash[:id]
+            datacenter_hash[:id]
           end
 
           def datacenter_hash
-            @datacenter_hash ||= datacenters.find { |x| x[:id] == @datacenter } if @datacenter
+            @datacenter_hash ||= datacenters.find { |x| x[:id] == @datacenter } || datacenters.find { |x| x[:name] == @datacenter } if @datacenter
             @datacenter_hash ||= datacenters.first
           end
 
