@@ -44,7 +44,7 @@ module Fog
         module Shared
           # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
           # converts an OVIRT object into an hash for fog to consume.
-          def ovirt_attrs(obj)
+          def shared_ovirt_attrs(obj)
             opts = {}
             # TODO: stop using instance_variables, they will change
             obj.instance_variables.each do |v|
@@ -52,7 +52,7 @@ module Fog
               value = obj.instance_variable_get(v)
 
               if key == :network
-                opts[key] = obj.vnic_profile.present? ? client.follow_link(obj.vnic_profile).network.id : value
+                opts[key] = obj.vnic_profile.present? ? yield(obj) : value
                 next
               end
 
@@ -70,6 +70,7 @@ module Fog
             end
             opts
           end
+
           # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
           # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity
@@ -138,6 +139,13 @@ module Fog
             require "ovirtsdk4"
           end
 
+          def ovirt_attrs(obj)
+            shared_ovirt_attrs(obj) do
+              xml = read_xml("vnic_profile.xml")
+              Nokogiri::XML(xml).xpath("/vnic_profile/network/@id").to_s
+            end
+          end
+
           private
 
           def client
@@ -177,17 +185,23 @@ module Fog
           end
           # rubocop:enable Metrics/AbcSize
 
+          def ovirt_attrs(obj)
+            shared_ovirt_attrs(obj) do
+              client.follow_link(obj.vnic_profile).network.id
+            end
+          end
+
           def api_version
             api = client.system_service.get
             api.product_info.version.full_version
           end
 
           def datacenter
-            @datacenter ||= datacenter_hash[:id]
+            datacenter_hash[:id]
           end
 
           def datacenter_hash
-            @datacenter_hash ||= datacenters.find { |x| x[:id] == @datacenter } if @datacenter
+            @datacenter_hash ||= datacenters.find { |x| x[:id] == @datacenter } || datacenters.find { |x| x[:name] == @datacenter } if @datacenter
             @datacenter_hash ||= datacenters.first
           end
 

@@ -1,0 +1,10 @@
+<vnic_profile href="/ovirt-engine/api/vnicprofiles/0000000a-000a-000a-000a-000000000398" id="0000000a-000a-000a-000a-000000000398">
+  <name>ovirtmgmt</name>
+  <link href="/ovirt-engine/api/vnicprofiles/0000000a-000a-000a-000a-000000000398/permissions" rel="permissions"/>
+  <pass_through>
+    <mode>disabled</mode>
+  </pass_through>
+  <port_mirroring>false</port_mirroring>
+  <network href="/ovirt-engine/api/networks/00000000-0000-0000-0000-000000000009" id="00000000-0000-0000-0000-000000000009"/>
+  <network_filter href="/ovirt-engine/api/networkfilters/593567f3-0314-011f-020e-0000000002d2" id="593567f3-0314-011f-020e-0000000002d2"/>
+</vnic_profile>
