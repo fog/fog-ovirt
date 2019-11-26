@@ -17,6 +17,7 @@ module Fog
         attribute :quota
         attribute :alias
         attribute :wipe_after_delete
+        attribute :name
 
         def size_gb
           attributes[:size_gb] ||= attributes[:size].to_i / Fog::Ovirt::Compute::DISK_SIZE_TO_GB if attributes[:size]
