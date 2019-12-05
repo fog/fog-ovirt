@@ -8,6 +8,11 @@
     <link href="/api/templates/00000000-0000-0000-0000-000000000000/permissions" rel="permissions"/>
     <type>desktop</type>
     <status>ok</status>
+    <version>
+      <version_name>base version</version_name>
+      <version_number>1</version_number>
+      <base_template href="/ovirt-engine/api/templates/00000000-0000-0000-0000-000000000000" id="00000000-0000-0000-0000-000000000000"/>
+    </version>
     <memory>536870912</memory>
     <cpu>
       <topology>
@@ -47,7 +52,6 @@
     <link href="/api/templates/05a5144f-8ef7-4151-b7f9-5014510b489e/cdroms" rel="cdroms"/>
     <link href="/api/templates/05a5144f-8ef7-4151-b7f9-5014510b489e/permissions" rel="permissions"/>
     <type>server</type>
-    <status>ok</status>
     <memory>1073741824</memory>
     <cpu>
       <topology>
@@ -81,6 +85,12 @@
     <usb>
       <enabled>true</enabled>
     </usb>
+    <status>ok</status>
+    <version>
+      <version_name>base version</version_name>
+      <version_number>1</version_number>
+      <base_template href="/ovirt-engine/api/templates/05a5144f-8ef7-4151-b7f9-5014510b489e" id="05a5144f-8ef7-4151-b7f9-5014510b489e"/>
+    </version>
   </template>
   <template href="/api/templates/2a08ba05-f3b1-4e5a-ade9-496466a8b323" id="2a08ba05-f3b1-4e5a-ade9-496466a8b323">
     <name>hwp_small</name>
@@ -90,7 +100,6 @@
     <link href="/api/templates/2a08ba05-f3b1-4e5a-ade9-496466a8b323/cdroms" rel="cdroms"/>
     <link href="/api/templates/2a08ba05-f3b1-4e5a-ade9-496466a8b323/permissions" rel="permissions"/>
     <type>server</type>
-    <status>ok</status>
     <memory>536870912</memory>
     <cpu>
       <topology>
@@ -124,5 +133,11 @@
     <usb>
       <enabled>true</enabled>
     </usb>
+    <status>ok</status>
+    <version>
+      <version_name>base version</version_name>
+      <version_number>1</version_number>
+      <base_template href="/ovirt-engine/api/templates/2a08ba05-f3b1-4e5a-ade9-496466a8b323" id="2a08ba05-f3b1-4e5a-ade9-496466a8b323"/>
+    </version>
   </template>
 </templates>
