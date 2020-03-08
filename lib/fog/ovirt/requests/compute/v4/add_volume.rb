@@ -13,7 +13,7 @@ module Fog
             disk_attachments_service.add(disk)
           end
 
-          # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+          # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
           def add_options_defaults(options)
             options = options.dup
             options = convert_string_to_bool(options)
@@ -35,7 +35,7 @@ module Fog
             options[:disk][:wipe_after_delete] = options.delete(:wipe_after_delete) if options[:disk][:wipe_after_delete].nil?
             options
           end
-          # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+          # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
         end
 
         class Mock

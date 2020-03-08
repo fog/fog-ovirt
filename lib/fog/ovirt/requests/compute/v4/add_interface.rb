@@ -3,7 +3,6 @@ module Fog
     class Compute
       class V4
         class Real
-          # rubocop:disable Metrics/AbcSize
           def add_interface(id, options = {})
             raise ArgumentError, "instance id is a required parameter" unless id
             vm = client.system_service.vms_service.vm_service(id)
@@ -26,7 +25,6 @@ module Fog
             interface = OvirtSDK4::Nic.new(options)
             nics_service.add(interface)
           end
-          # rubocop:enable Metrics/AbcSize
         end
 
         class Mock

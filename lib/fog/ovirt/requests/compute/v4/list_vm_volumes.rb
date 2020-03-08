@@ -3,7 +3,6 @@ module Fog
     class Compute
       class V4
         class Real
-          # rubocop:disable Metrics/AbcSize
           def list_vm_volumes(vm_id)
             vm = client.system_service.vms_service.vm_service(vm_id).get
             attachments = client.follow_link(vm.disk_attachments)
@@ -18,7 +17,6 @@ module Fog
               ovirt_attrs attachment_disk
             end
           end
-          # rubocop:enable Metrics/AbcSize
         end
         class Mock
           def list_vm_volumes(_vm_id)

@@ -3,7 +3,6 @@ module Fog
     class Compute
       class V4
         class Real
-          # rubocop:disable Metrics/AbcSize
           def update_vm(attrs)
             attrs = attrs.dup
             attrs = convert_string_to_bool(attrs)
@@ -34,7 +33,6 @@ module Fog
                                         end
             vm_service.update(attrs)
           end
-          # rubocop:enable Metrics/AbcSize
 
           def wrap_attribute(attrs, attribute, klass)
             if attrs[attribute].present?

@@ -21,3 +21,6 @@ Style/SignalException:
 
 Layout/EmptyLineAfterGuardClause:
   Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false

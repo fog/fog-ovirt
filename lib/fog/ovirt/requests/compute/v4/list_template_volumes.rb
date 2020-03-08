@@ -3,7 +3,6 @@ module Fog
     class Compute
       class V4
         class Real
-          # rubocop:disable Metrics/AbcSize
           def list_template_volumes(template_id)
             template = client.system_service.templates_service.template_service(template_id).get
             attachments = client.follow_link(template.disk_attachments)
@@ -18,7 +17,6 @@ module Fog
               ovirt_attrs attachment_disk
             end
           end
-          # rubocop:enable Metrics/AbcSize
         end
         class Mock
           def list_template_volumes(_template_id)
