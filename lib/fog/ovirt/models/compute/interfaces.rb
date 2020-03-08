@@ -9,7 +9,6 @@ module Fog
 
         attr_accessor :vm
 
-        # rubocop:disable Metrics/AbcSize
         def all(_filters = {})
           requires :vm
           if vm.is_a? Fog::Ovirt::Compute::Server
@@ -20,7 +19,6 @@ module Fog
             raise ::Fog::Ovirt::Errors::OvirtError, "interfaces should have vm or template"
           end
         end
-        # rubocop:enable Metrics/AbcSize
 
         def get(id)
           new service.get_interface(id)

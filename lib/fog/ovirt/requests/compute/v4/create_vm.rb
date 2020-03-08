@@ -21,7 +21,7 @@ module Fog
             opts.delete(:disks)
           end
 
-          # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/MethodLength
+          # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/MethodLength
           def create_vm(attrs)
             attrs = attrs.dup
             attrs = convert_string_to_bool(attrs)
@@ -65,9 +65,8 @@ module Fog
             new_vm = OvirtSDK4::Vm.new(attrs)
             vms_service.add(new_vm, :clone => attrs[:clone])
           end
-          # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/MethodLength
+          # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/MethodLength
 
-          # rubocop:disable Metrics/AbcSize
           def update_os_attrs(attrs)
             attrs[:os] ||= {}
             attrs[:os][:type] ||= "Other OS"
@@ -76,7 +75,6 @@ module Fog
 
             attrs[:os] = OvirtSDK4::OperatingSystem.new(:type => attrs[:os][:type], :boot => OvirtSDK4::Boot.new(:devices => attrs[:os][:boot]))
           end
-          # rubocop:enable Metrics/AbcSize
         end
 
         class Mock

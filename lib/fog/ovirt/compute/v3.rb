@@ -103,7 +103,6 @@ module Fog
         class Real
           include Shared
 
-          # rubocop:disable Metrics/AbcSize
           def initialize(options = {})
             require "rbovirt"
             username   = options[:ovirt_username]
@@ -122,7 +121,6 @@ module Fog
 
             @client = ExceptionWrapper.new(OVIRT::Client.new(username, password, url, connection_opts))
           end
-          # rubocop:enable Metrics/AbcSize
 
           def api_version
             client.api_version

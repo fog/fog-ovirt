@@ -42,7 +42,7 @@ module Fog
         request :list_operating_systems
 
         module Shared
-          # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+          # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
           # converts an OVIRT object into an hash for fog to consume.
           def shared_ovirt_attrs(obj)
             opts = {}
@@ -71,9 +71,9 @@ module Fog
             opts
           end
 
-          # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+          # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
-          # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity
+          # rubocop:disable Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity
           def get_attr_value(value, opts)
             case value
             when OvirtSDK4::List
@@ -111,7 +111,7 @@ module Fog
               end
             end
           end
-          # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity
+          # rubocop:enable Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity
 
           def convert_string_to_bool(value)
             case value
@@ -162,7 +162,6 @@ module Fog
         class Real
           include Shared
 
-          # rubocop:disable Metrics/AbcSize
           def initialize(options = {})
             require "ovirtsdk4"
             username   = options[:ovirt_username]
@@ -183,7 +182,6 @@ module Fog
 
             @client = ExceptionWrapper.new(OvirtSDK4::Connection.new(connection_opts))
           end
-          # rubocop:enable Metrics/AbcSize
 
           def ovirt_attrs(obj)
             shared_ovirt_attrs(obj) do

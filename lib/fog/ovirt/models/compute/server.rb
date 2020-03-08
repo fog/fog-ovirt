@@ -121,7 +121,6 @@ module Fog
           vm_power_action(:start)
         end
 
-        # rubocop:disable Metrics/AbcSize
         def start_with_cloudinit(options = {})
           wait_for { !locked? } if options[:blocking]
           user_data = if options[:use_custom_script]
@@ -133,7 +132,6 @@ module Fog
           reload
           action_status
         end
-        # rubocop:enable Metrics/AbcSize
 
         def stop(_options = {})
           vm_power_action(:stop)
