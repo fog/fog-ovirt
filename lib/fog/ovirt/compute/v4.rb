@@ -104,7 +104,7 @@ module Fog
             when OvirtSDK4::Console
               { :enabled => value.enabled }
             else
-              if value.class.respond_to?(:parent) && value.class.parent == OvirtSDK4
+              if value.class.respond_to?(:module_parent) && value.class.module_parent == OvirtSDK4
                 value.id if value.respond_to?(:id)
               else
                 value.to_s.strip

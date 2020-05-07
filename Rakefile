@@ -12,7 +12,7 @@ mock = ENV["FOG_MOCK"] || "true"
 begin
   require "rubocop/rake_task"
   RuboCop::RakeTask.new do |t|
-    t.patterns = Dir["{lib,spec,tests}/**/*"]
+    t.patterns = Dir["{lib,spec,tests}/**/*.rb"]
   end
 rescue StandardError
   puts "Rubocop not loaded"
