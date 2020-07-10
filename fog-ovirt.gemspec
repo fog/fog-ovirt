@@ -23,7 +23,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency("fog-core")
   spec.add_dependency("fog-json")
   spec.add_dependency("fog-xml")
-  spec.add_dependency("ovirt-engine-sdk", ">= 4.1.3")
+  spec.add_dependency("ovirt-engine-sdk", ">= 4.3.1")
   spec.add_dependency("rbovirt", "~> 0.1.5")
 
   spec.add_development_dependency "bundler"
