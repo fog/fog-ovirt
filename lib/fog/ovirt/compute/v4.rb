@@ -191,7 +191,7 @@ module Fog
           end
 
           def create_search_by_datacenter(search: nil, datacenter: nil, page: nil)
-            unless datacenter raise ::Fog::Ovirt::Errors::OvirtEngineError('Cannot create search request by datacenter, when datacenter is nil`)
+            unless datacenter raise ::Fog::Ovirt::Errors::OvirtEngineError('Cannot create search request by datacenter, when datacenter is nil')
             search ||= ""
             search += " datacenter=#{datacenter}" if datacenter
             search += " page #{page}" if page
