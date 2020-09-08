@@ -40,9 +40,7 @@ compute = Fog::Compute.new(
 
 ## API Support
 
-This gem fully supports API v3 of oVirt.
-
-Version 1.0.2 adds support API V4 as well.
+This gem fully supports API V4 of oVirt.
 The first version does not give full support.
 The supported requests for API V4 are:
 
@@ -72,9 +70,7 @@ This example shows the usage as a fog provider:
         :ovirt_url        => url,
         :ovirt_datacenter => datacenter,
         :public_key       => public_key,
-        :api_version      => 'v4'
       )    
-The :api_version can be sent 'v3' or 'v4' to determine which API version to use. 
 
 
 Feedback is welcome. Please feel free to open issues for the V4 support and contribute.

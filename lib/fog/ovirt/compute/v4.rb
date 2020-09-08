@@ -1,3 +1,6 @@
+require "active_support"
+require "active_support/core_ext"
+
 module Fog
   module Ovirt
     class Compute
