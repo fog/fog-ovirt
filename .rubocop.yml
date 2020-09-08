@@ -24,3 +24,10 @@ Layout/EmptyLineAfterGuardClause:
 
 Metrics/AbcSize:
   Enabled: false
+
+Gemspec/RequiredRubyVersion:
+  Enabled: false
+
+AllCops:
+  Exclude:
+  - 'lib/fog/ovirt/compute.rb'

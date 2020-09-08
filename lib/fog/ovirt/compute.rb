@@ -50,22 +50,13 @@ module Fog
         end
       end
 
-      require "fog/ovirt/compute/v3"
       require "fog/ovirt/compute/v4"
 
       def self.new(options = {})
         super(options)
-
-        # rubocop:disable Style/ConditionalAssignment
-        if options[:api_version] == "v4"
-          @client = Fog::Ovirt::Compute::V4.new(options)
-        else
-          @client = Fog::Ovirt::Compute::V3.new(options)
-        end
-        # rubocop:enable Style/ConditionalAssignment
+        @client = Fog::Ovirt::Compute::V4.new(options)
       end
 
-      # rubocop:disable Style/MethodMissingSuper, Style/MissingRespondToMissing
       def method_missing(symbol, *args)
         @client.__send__(symbol, *args)
       end
@@ -73,20 +64,13 @@ module Fog
       def respond_to?(symbol, include_all = false)
         @client.respond_to?(symbol, include_all)
       end
-      # rubocop:enable Style/MethodMissingSuper, Style/MissingRespondToMissing
 
       class Mock
         def initialize(options = {})
-          if options[:api_version] == "v4"
-            Fog::Ovirt::Compute::V4::Mock.include Fog::Ovirt::Compute::Collections
-            @client = Fog::Ovirt::Compute::V4::Mock.new(options)
-          else
-            Fog::Ovirt::Compute::V3::Mock.include Fog::Ovirt::Compute::Collections
-            @client = Fog::Ovirt::Compute::V3::Mock.new(options)
-          end
+          Fog::Ovirt::Compute::V4::Mock.include Fog::Ovirt::Compute::Collections
+          @client = Fog::Ovirt::Compute::V4::Mock.new(options)
         end
 
-        # rubocop:disable Style/MethodMissingSuper, Style/MissingRespondToMissing
         def method_missing(symbol, *args)
           @client.__send__(symbol, *args)
         end
@@ -94,21 +78,14 @@ module Fog
         def respond_to?(symbol, include_all = false)
           @client.respond_to?(symbol, include_all)
         end
-        # rubocop:enable Style/MethodMissingSuper, Style/MissingRespondToMissing
       end
 
       class Real
         def initialize(options = {})
-          if options[:api_version] == "v4"
-            Fog::Ovirt::Compute::V4::Real.include Fog::Ovirt::Compute::Collections
-            @client = Fog::Ovirt::Compute::V4::Real.new(options)
-          else
-            Fog::Ovirt::Compute::V3::Real.include Fog::Ovirt::Compute::Collections
-            @client = Fog::Ovirt::Compute::V3::Real.new(options)
-          end
+          Fog::Ovirt::Compute::V4::Real.include Fog::Ovirt::Compute::Collections
+          @client = Fog::Ovirt::Compute::V4::Real.new(options)
         end
 
-        # rubocop:disable Style/MethodMissingSuper, Style/MissingRespondToMissing
         def method_missing(symbol, *args)
           @client.send(symbol, *args)
         end
@@ -116,7 +93,6 @@ module Fog
         def respond_to?(symbol, include_all = false)
           @client.respond_to?(symbol, include_all)
         end
-        # rubocop:enable Style/MethodMissingSuper, Style/MissingRespondToMissing
       end
     end
   end

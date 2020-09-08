@@ -9,14 +9,8 @@ require "bundler/gem_tasks"
 
 mock = ENV["FOG_MOCK"] || "true"
 
-begin
-  require "rubocop/rake_task"
-  RuboCop::RakeTask.new do |t|
-    t.patterns = Dir["{lib,spec,tests}/**/*.rb"]
-  end
-rescue StandardError
-  puts "Rubocop not loaded"
-end
+require "rubocop/rake_task"
+RuboCop::RakeTask.new
 
 task :test do
   sh("export FOG_MOCK=#{mock} && bundle exec shindont tests/ovirt")
