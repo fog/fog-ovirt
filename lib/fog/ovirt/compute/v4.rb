@@ -40,6 +40,7 @@ module Fog
         request :list_quotas
         request :get_quota
         request :list_operating_systems
+        request :list_vnic_profiles
 
         module Shared
           # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
