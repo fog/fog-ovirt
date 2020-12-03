@@ -1,0 +1,42 @@
+<vnic_profiles>
+  <vnic_profile href="/ovirt-engine/api/vnicprofiles/0000000a-000a-000a-000a-000000000398" id="0000000a-000a-000a-000a-000000000398">
+    <name>ovirtmgmt</name>
+    <link href="/ovirt-engine/api/vnicprofiles/0000000a-000a-000a-000a-000000000398/permissions" rel="permissions"/>
+    <pass_through>
+      <mode>disabled</mode>
+    </pass_through>
+    <port_mirroring>false</port_mirroring>
+    <network href="/ovirt-engine/api/networks/00000000-0000-0000-0000-000000000009" id="00000000-0000-0000-0000-000000000009"/>
+    <network_filter href="/ovirt-engine/api/networkfilters/b295bf02-24b8-11ea-926f-001a4a160344" id="b295bf02-24b8-11ea-926f-001a4a160344"/>
+  </vnic_profile>
+  <vnic_profile href="/ovirt-engine/api/vnicprofiles/4e7431d7-bb74-4358-b065-7dc4a0a3f9a9" id="4e7431d7-bb74-4358-b065-7dc4a0a3f9a9">
+    <name>ovirtmgmt</name>
+    <link href="/ovirt-engine/api/vnicprofiles/4e7431d7-bb74-4358-b065-7dc4a0a3f9a9/permissions" rel="permissions"/>
+    <pass_through>
+      <mode>disabled</mode>
+    </pass_through>
+    <port_mirroring>false</port_mirroring>
+    <network href="/ovirt-engine/api/networks/f89cd192-657a-49aa-99ae-f325882eb70c" id="f89cd192-657a-49aa-99ae-f325882eb70c"/>
+    <network_filter href="/ovirt-engine/api/networkfilters/b295bf02-24b8-11ea-926f-001a4a160344" id="b295bf02-24b8-11ea-926f-001a4a160344"/>
+  </vnic_profile>
+  <vnic_profile href="/ovirt-engine/api/vnicprofiles/51249f24-17d3-48e8-807e-689d85a22b14" id="51249f24-17d3-48e8-807e-689d85a22b14">
+    <name>test</name>
+    <link href="/ovirt-engine/api/vnicprofiles/51249f24-17d3-48e8-807e-689d85a22b14/permissions" rel="permissions"/>
+    <pass_through>
+      <mode>disabled</mode>
+    </pass_through>
+    <port_mirroring>true</port_mirroring>
+    <network href="/ovirt-engine/api/networks/f89cd192-657a-49aa-99ae-f325882eb70c" id="f89cd192-657a-49aa-99ae-f325882eb70c"/>
+    <network_filter href="/ovirt-engine/api/networkfilters/b295bf02-24b8-11ea-926f-001a4a160344" id="b295bf02-24b8-11ea-926f-001a4a160344"/>
+  </vnic_profile>
+  <vnic_profile href="/ovirt-engine/api/vnicprofiles/8267104a-7597-474b-a617-9c787c1a8e9d" id="8267104a-7597-474b-a617-9c787c1a8e9d">
+    <name>fff</name>
+    <link href="/ovirt-engine/api/vnicprofiles/8267104a-7597-474b-a617-9c787c1a8e9d/permissions" rel="permissions"/>
+    <pass_through>
+      <mode>disabled</mode>
+    </pass_through>
+    <port_mirroring>false</port_mirroring>
+    <network href="/ovirt-engine/api/networks/00000000-0000-0000-0000-000000000009" id="00000000-0000-0000-0000-000000000009"/>
+    <network_filter href="/ovirt-engine/api/networkfilters/b295bf02-24b8-11ea-926f-001a4a160344" id="b295bf02-24b8-11ea-926f-001a4a160344"/>
+  </vnic_profile>
+</vnic_profiles>

@@ -9,19 +9,15 @@ module Fog
             nics_service = vm.nics_service
             options = options.dup
             options = convert_string_to_bool(options)
-            if options[:network].present?
+            if options[:network].present? && options[:vnic_profile].nil?
               network = client.system_service.networks_service.network_service(options[:network]).get
-
               profiles = client.follow_link(network.vnic_profiles)
-
               profile = profiles.detect { |x| x.name == network.name }
-
               profile ||= profiles.min_by(&:name)
-
-              options.delete(:network)
-              options[:vnic_profile] = { :id => profile.id }
+              options[:vnic_profile] = profile.id
             end
-
+            options[:vnic_profile] = { :id => options[:vnic_profile] }
+            options.delete(:network)
             interface = OvirtSDK4::Nic.new(options)
             nics_service.add(interface)
           end
