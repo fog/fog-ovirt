@@ -9,7 +9,7 @@ module Fog
             filter[:search] = create_search_by_datacenter(:search => filter[:search], :datacenter => datacenter_hash[:name])
             client.system_service.storage_domains_service.list(filter).collect do |sd|
               # Filter by role is not supported by the search language. The work around is to list all, then filter.
-              role_filter.nil? || sd.type == role_filter ? sd : nil
+              role_filter.nil? || Array(role_filter).include?(sd.type) ? sd : nil
             end.compact
           end
         end
