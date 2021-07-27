@@ -8,6 +8,8 @@ module Fog
             profiles = client.system_service.vnic_profiles_service.list
             profiles.each do |profile|
               vnic_network = client.follow_link(profile.network)
+              profile.name = profile.name.encode unless profile.name.nil?
+              profile.description = profile.description.encode unless profile.description.nil?
               dc_vnics.append(profile) if vnic_network.data_center.id == datacenter
             end
             dc_vnics
