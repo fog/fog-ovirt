@@ -8,6 +8,7 @@ module Fog
             client.system_service.clusters_service.list(opts).map { |ovirt_obj| ovirt_attrs(ovirt_obj) }
           end
         end
+
         class Mock
           def list_clusters(_filters = {})
             xml = read_xml "clusters.xml"

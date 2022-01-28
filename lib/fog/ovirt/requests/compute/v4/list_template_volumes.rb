@@ -18,6 +18,7 @@ module Fog
             end
           end
         end
+
         class Mock
           def list_template_volumes(_template_id)
             xml = read_xml "volumes.xml"

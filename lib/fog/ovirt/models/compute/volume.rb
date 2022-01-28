@@ -3,6 +3,7 @@ module Fog
     class Compute
       class Volume < Fog::Model
         attr_accessor :raw
+
         identity :id
 
         attribute :storage_domain

@@ -7,6 +7,7 @@ module Fog
             ovirt_attrs client.system_service.clusters_service.cluster_service(id).get
           end
         end
+
         class Mock
           def get_cluster(_id)
             xml = read_xml("cluster.xml")

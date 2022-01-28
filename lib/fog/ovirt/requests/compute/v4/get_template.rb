@@ -7,6 +7,7 @@ module Fog
             ovirt_attrs client.system_service.templates_service.template_service(id).get
           end
         end
+
         class Mock
           def get_template(_id)
             xml = read_xml "template.xml"

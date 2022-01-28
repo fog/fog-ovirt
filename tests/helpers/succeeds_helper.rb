@@ -1,8 +1,9 @@
 module Shindo
   class Tests
-    def succeeds
+    def succeeds(&block)
       test("succeeds") do
-        !!instance_eval(&Proc.new)
+        p = block_given? ? block : proc {}
+        !!instance_eval(&p)
       end
     end
   end

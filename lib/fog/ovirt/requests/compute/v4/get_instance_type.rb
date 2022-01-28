@@ -7,6 +7,7 @@ module Fog
             ovirt_attrs client.system_service.instance_types_service.instance_type_service(id).get
           end
         end
+
         class Mock
           def get_instance_type(_id)
             xml = read_xml "instance_type.xml"

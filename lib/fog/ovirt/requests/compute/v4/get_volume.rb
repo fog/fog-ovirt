@@ -7,6 +7,7 @@ module Fog
             ovirt_attrs client.system_service.disks_service.disk_service(id).get
           end
         end
+
         class Mock
           def get_volume(_id)
             xml = read_xml("disk.xml")

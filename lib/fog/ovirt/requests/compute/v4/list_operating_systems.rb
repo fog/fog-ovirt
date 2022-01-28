@@ -7,6 +7,7 @@ module Fog
             client.system_service.operating_systems_service.list.map { |ovirt_obj| ovirt_attrs ovirt_obj }
           end
         end
+
         class Mock
           def list_operating_systems
             xml = read_xml "operating_systems.xml"

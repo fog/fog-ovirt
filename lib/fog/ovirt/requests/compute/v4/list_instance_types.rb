@@ -7,6 +7,7 @@ module Fog
             client.system_service.instance_types_service.list(filters).map { |ovirt_obj| ovirt_attrs ovirt_obj }
           end
         end
+
         class Mock
           def list_instance_types(_filters = {})
             xml = read_xml "instance_types.xml"

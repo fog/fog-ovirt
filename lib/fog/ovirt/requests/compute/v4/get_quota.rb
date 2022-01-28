@@ -8,6 +8,7 @@ module Fog
             ovirt_attrs quota
           end
         end
+
         class Mock
           def get_quota(_id)
             xml = read_xml("quota.xml")
