@@ -9,7 +9,7 @@ module Fog
             vm_service = client.system_service.vms_service.vm_service(attrs[:id])
 
             if attrs[:cores].present?
-              cpu_topology = OvirtSDK4::CpuTopology.new(:cores => attrs[:cores], :sockets => "1")
+              cpu_topology = OvirtSDK4::CpuTopology.new(:cores => attrs[:cores], :sockets => attrs[:sockets] || 1)
               attrs[:cpu] = OvirtSDK4::Cpu.new(:topology => cpu_topology)
             end
             wrap_attribute(attrs, :cluster, OvirtSDK4::Cluster)
