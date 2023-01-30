@@ -3,6 +3,7 @@ module Fog
     class Compute
       class OperatingSystem < Fog::Model
         attr_accessor :raw
+
         identity :id
 
         attribute :name

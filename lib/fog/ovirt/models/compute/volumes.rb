@@ -10,9 +10,10 @@ module Fog
         attr_accessor :vm
 
         def all(_filters = {})
-          if vm.is_a? Fog::Ovirt::Compute::Server
+          case vm
+          when Fog::Ovirt::Compute::Server
             load service.list_vm_volumes(vm.id)
-          elsif vm.is_a? Fog::Ovirt::Compute::Template
+          when Fog::Ovirt::Compute::Template
             load service.list_template_volumes(vm.id)
           else
             load service.list_volumes

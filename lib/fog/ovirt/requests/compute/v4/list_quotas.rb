@@ -8,6 +8,7 @@ module Fog
             data_center.quotas_service.list(filters).map { |ovirt_obj| ovirt_attrs ovirt_obj }
           end
         end
+
         class Mock
           def list_quotas(_filters = {})
             xml = read_xml "quotas.xml"

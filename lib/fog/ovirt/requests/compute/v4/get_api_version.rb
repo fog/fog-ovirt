@@ -7,6 +7,7 @@ module Fog
             "4.0"
           end
         end
+
         class Mock
           def api_version
             "4.0"

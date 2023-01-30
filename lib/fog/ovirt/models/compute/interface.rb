@@ -3,6 +3,7 @@ module Fog
     class Compute
       class Interface < Fog::Model
         attr_accessor :raw
+
         identity :id
 
         attribute :name

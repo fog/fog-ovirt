@@ -13,6 +13,7 @@ module Fog
             dc_vnics
           end
         end
+
         class Mock
           def list_vnic_profiles(_filters = {})
             xml = read_xml "vnic_profiles.xml"

@@ -7,6 +7,7 @@ module Fog
             client.system_service.templates_service.template_service(vm_id).nics_service.list.map { |ovirt_obj| ovirt_attrs ovirt_obj }
           end
         end
+
         class Mock
           def list_template_interfaces(_vm_id)
             xml = read_xml "nics.xml"

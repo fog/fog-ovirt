@@ -7,6 +7,7 @@ module Fog
             client.system_service.disks_service.list.map { |ovirt_obj| ovirt_attrs ovirt_obj }
           end
         end
+
         class Mock
           def list_volumes
             xml = read_xml "disks.xml"

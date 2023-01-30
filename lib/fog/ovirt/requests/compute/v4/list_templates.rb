@@ -7,6 +7,7 @@ module Fog
             client.system_service.templates_service.list(filters).map { |ovirt_obj| ovirt_attrs ovirt_obj }
           end
         end
+
         class Mock
           def list_templates(_filters = {})
             xml = read_xml "templates.xml"
