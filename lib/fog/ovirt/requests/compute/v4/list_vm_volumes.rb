@@ -13,7 +13,12 @@ module Fog
               interface = attachment.interface
               attachment_disk.bootable = bootable if attachment_disk.bootable.nil?
               attachment_disk.interface = interface if attachment_disk.interface.nil?
-              attachment_disk.storage_domain = attachment_disk.storage_domains[0].id
+              attachment_disk.storage_domain = begin
+                                                 attachment_disk.storage_domains[0].id || 0
+                                               rescue => e
+                                                 Fog::Logger.warning("Error parsing attachment_disk.storage_domains response json - #{e}. Fallback to 0")
+                                                 0
+                                               end
               ovirt_attrs attachment_disk
             end
           end
